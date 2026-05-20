@@ -48,6 +48,21 @@ use Bensondevs\Mayar\Api\Invoices\Invoice;
 $paginator = Invoice::paginate(page: 1, perPage: 10);
 ```
 
+Returns: `LengthAwarePaginator<Invoice>`
+
+```php
+foreach ($paginator as $invoice) {
+    echo $invoice->id;
+    echo $invoice->status;
+    echo $invoice->name;
+}
+
+echo $paginator->total();
+echo $paginator->perPage();
+echo $paginator->currentPage();
+echo $paginator->lastPage();
+```
+
 API reference: [Get List Invoice](https://docs.mayar.id/api-reference/invoice)
 
 ## Get Sort / Filter Invoice
@@ -57,6 +72,15 @@ use Bensondevs\Mayar\Api\Invoices\Enums\InvoiceSort;
 use Bensondevs\Mayar\Api\Invoices\Invoice;
 
 $paginator = Invoice::sort(InvoiceSort::Closed)->paginate(page: 1, perPage: 10);
+```
+
+Returns: `LengthAwarePaginator<Invoice>` (same paginator usage pattern as above).
+
+```php
+foreach ($paginator as $invoice) {
+    echo $invoice->id;
+}
+echo $paginator->total();
 ```
 
 API reference: [Get Sort / Filter Invoice](https://docs.mayar.id/api-reference/invoice/filter)
@@ -70,6 +94,20 @@ $invoice = Invoice::find('uuid');
 $invoice = Invoice::findOrFail('uuid');
 ```
 
+Returns:
+- `Invoice::find(string $id): Invoice|null`
+- `Invoice::findOrFail(string $id): Invoice` (throws when not found)
+
+Common invoice attributes:
+- `id`, `name`, `email`, `mobile`, `description`, `status`, `expiredAt`, `items`, `createdAt`
+
+```php
+$invoice = Invoice::findOrFail('uuid');
+echo $invoice->id;
+echo $invoice->status;
+echo $invoice->expiredAt;
+```
+
 API reference: [Get Detail / Invoice Status](https://docs.mayar.id/api-reference/invoice/detail)
 
 ## Close Invoice
@@ -79,6 +117,26 @@ $invoice = Invoice::findOrFail('uuid');
 $success = $invoice->close();
 ```
 
+Returns: `bool` (`true` when invoice is closed).
+
+Failure cases can happen when:
+- invoice ID does not exist
+- invoice is already closed or no longer closable
+- API validation/auth fails
+
+```php
+try {
+    $invoice = Invoice::findOrFail('uuid');
+    $success = $invoice->close();
+
+    if (! $success) {
+        // Handle API-level close rejection
+    }
+} catch (\Throwable $e) {
+    // Handle not found, validation, or transport errors
+}
+```
+
 API reference: [Close Invoice](https://docs.mayar.id/api-reference/invoice/close)
 
 ## Re-open Invoice
@@ -86,6 +144,26 @@ API reference: [Close Invoice](https://docs.mayar.id/api-reference/invoice/close
 ```php
 $invoice = Invoice::findOrFail('uuid');
 $success = $invoice->open();
+```
+
+Returns: `bool` (`true` when invoice is re-opened).
+
+Failure cases can happen when:
+- invoice ID does not exist
+- invoice is not in a re-openable status
+- API validation/auth fails
+
+```php
+try {
+    $invoice = Invoice::findOrFail('uuid');
+    $success = $invoice->open();
+
+    if (! $success) {
+        // Handle API-level reopen rejection
+    }
+} catch (\Throwable $e) {
+    // Handle not found, validation, or transport errors
+}
 ```
 
 API reference: [Re-open Invoice](https://docs.mayar.id/api-reference/invoice/reopen)

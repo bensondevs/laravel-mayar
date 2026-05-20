@@ -15,6 +15,13 @@ foreach ($paginator as $review) {
     echo $review->message;
     echo $review->rating;
 }
+
+echo $paginator->total();
+echo $paginator->perPage();
+echo $paginator->currentPage();
+echo $paginator->lastPage();
 ```
+
+Returns: `LengthAwarePaginator<Review>` with item attributes such as `id`, `message`, `rating`, `createdAt`.
 
 API reference: [Get All Reviews](https://docs.mayar.id/api-reference/reviews/getallreviews)

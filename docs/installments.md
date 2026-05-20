@@ -34,4 +34,18 @@ $installment = Installment::find('uuid');
 $installment = Installment::findOrFail('uuid');
 ```
 
+Returns:
+- `Installment::find(string $id): Installment|null`
+- `Installment::findOrFail(string $id): Installment` (throws when not found)
+
+Common installment attributes:
+- `id`, `name`, `email`, `mobile`, `amount`, `status`, `installment`, `createdAt`
+
+```php
+$installment = Installment::findOrFail('uuid');
+echo $installment->id;
+echo $installment->status;
+echo $installment->amount;
+```
+
 API reference: [Get Installment Detail](https://docs.mayar.id/api-reference/installment/detail)

@@ -31,6 +31,21 @@ $paginator = CreditHistory::paginate(
 );
 ```
 
+Returns: `LengthAwarePaginator<CreditHistory>`
+
+```php
+foreach ($paginator as $history) {
+    echo $history->id;
+    echo $history->amount;
+    echo $history->createdAt;
+}
+
+echo $paginator->total();
+echo $paginator->perPage();
+echo $paginator->currentPage();
+echo $paginator->lastPage();
+```
+
 API reference: [Get Paginate Customer Credit History](https://docs.mayar.id/api-reference/usagebasedmembership/paginatecustomercredithistory)
 
 ## Spend Customer Credit
@@ -46,6 +61,30 @@ $success = CreditMembership::spend([
 ]);
 ```
 
+Returns: `bool` (`true` when spend succeeds).
+
+Failure cases can happen when:
+- customer balance is insufficient
+- customer or membership tier is not found
+- API validation/auth fails
+
+```php
+try {
+    $success = CreditMembership::spend([
+        'productId' => 'YOUR-PRODUCT-ID',
+        'membershipTierId' => 'YOUR-MEMBERSHIP-TIER-ID',
+        'amount' => 10,
+        'memberId' => 'PQVS4KGY',
+    ]);
+
+    if (! $success) {
+        // Handle API-level spend rejection
+    }
+} catch (\Throwable $e) {
+    // Handle validation, not-found, or transport errors
+}
+```
+
 API reference: [Spend Customer Credit](https://docs.mayar.id/api-reference/usagebasedmembership/spendcustomercredit)
 
 ## Add Customer Credit
@@ -59,6 +98,21 @@ $result = CreditMembership::addCredit([
     'amount' => 100,
     'customerId' => 'YOUR-CUSTOMER-ID',
 ]);
+```
+
+Returns: array/object with updated credit information.
+
+```php
+try {
+    $result = CreditMembership::addCredit([
+        'productId' => 'YOUR-PRODUCT-ID',
+        'membershipTierId' => 'YOUR-MEMBERSHIP-TIER-ID',
+        'amount' => 100,
+        'customerId' => 'YOUR-CUSTOMER-ID',
+    ]);
+} catch (\Throwable $e) {
+    // Handle validation, not-found, or transport errors
+}
 ```
 
 API reference: [Add Customer Credit](https://docs.mayar.id/api-reference/usagebasedmembership/addcustomercredit)

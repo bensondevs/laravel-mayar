@@ -30,6 +30,21 @@ $paginator = CreditUsageHistory::paginate(
 );
 ```
 
+Returns: `LengthAwarePaginator<CreditUsageHistory>`
+
+```php
+foreach ($paginator as $history) {
+    echo $history->id;
+    echo $history->amount;
+    echo $history->createdAt;
+}
+
+echo $paginator->total();
+echo $paginator->perPage();
+echo $paginator->currentPage();
+echo $paginator->lastPage();
+```
+
 API reference: [Get Paginate Customer Credit History](https://docs.mayar.id/api-reference/creditbasedproduct/paginatecustomercredithistory)
 
 ## Spend Customer Credit (Credit Usage)
@@ -42,6 +57,29 @@ $success = CreditBasedProduct::spend([
     'customerId' => 'YOUR-CUSTOMER-ID',
     'amount' => 10,
 ]);
+```
+
+Returns: `bool` (`true` when spend succeeds).
+
+Failure cases can happen when:
+- customer balance is insufficient
+- product/customer ID is invalid
+- API validation/auth fails
+
+```php
+try {
+    $success = CreditBasedProduct::spend([
+        'productId' => 'YOUR-PRODUCT-ID',
+        'customerId' => 'YOUR-CUSTOMER-ID',
+        'amount' => 10,
+    ]);
+
+    if (! $success) {
+        // Handle API-level spend rejection
+    }
+} catch (\Throwable $e) {
+    // Handle validation, not-found, or transport errors
+}
 ```
 
 API reference: [Spend Customer Credit](https://docs.mayar.id/api-reference/creditbasedproduct/spendcustomercredit)
@@ -57,6 +95,8 @@ $result = CreditBasedProduct::addCredit([
     'amount' => 100,
 ]);
 ```
+
+Returns: array/object with updated credit information.
 
 API reference: [Add Customer Credit](https://docs.mayar.id/api-reference/creditbasedproduct/addcustomercredit)
 
@@ -93,5 +133,12 @@ $result = CreditBasedProduct::generateImmutableCheckout([
     ],
 ]);
 ```
+
+Returns: array/object containing checkout URL and checkout metadata.
+
+Failure cases can happen when:
+- product or customer data is invalid
+- requested credit amount is invalid
+- API validation/auth fails
 
 API reference: [Generate Immutable Checkout Link](https://docs.mayar.id/api-reference/creditbasedproduct/generateimmutablecheckoutlink)
