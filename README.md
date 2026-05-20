@@ -12,6 +12,7 @@ Laravel integration for the [Mayar Headless API](https://docs.mayar.id/api-refer
 - [Invoices](#invoices)
 - [Payment Requests](#payment-requests)
 - [Installments](#installments)
+- [Discounts](#discounts)
 - [Develop and test](#develop-and-test)
 - [Roadmap](#roadmap)
 
@@ -73,7 +74,7 @@ Mayar::mode(MayarMode::Production);
 Mayar::client()->get(uri: 'customer', query: ['page' => 1]);
 ```
 
-For products, invoices, payment requests, and installments, use the [Products](#products), [Invoices](#invoices), [Payment Requests](#payment-requests), and [Installments](#installments) modules below.
+For products, invoices, payment requests, installments, and discounts, use the [Products](#products), [Invoices](#invoices), [Payment Requests](#payment-requests), [Installments](#installments), and [Discounts](#discounts) modules below.
 
 ## Products
 
@@ -710,6 +711,105 @@ Authorization: Bearer {MAYAR_API_KEY}
 ```
 
 **API reference:** [Get Installment Detail](https://docs.mayar.id/api-reference/installment/detail)
+
+---
+
+## Discounts
+
+Module namespace: `Bensondevs\Mayar\Discounts\`
+
+API-backed `Discount` resources support **create**, **validate**, and **detail** (no list or edit endpoints). Use an Eloquent-*like* style for create: `new`, `setDiscount()`, `setCoupon()`, and `save()`. Coupon validation at checkout uses `Discount::validate()`. Detail uses `find()` / `findOrFail()`. Create and validate payloads are validated before any HTTP request.
+
+Nested `discount` rules and `coupon` code are set via `setDiscount()` / `setCoupon()` using `DiscountRules` / `CouponCode` DTOs or arrays. Calling `save()` on an existing record throws `LogicException` because the API has no update endpoint.
+
+`{base}` is your configured API root. All requests require `Authorization: Bearer {MAYAR_API_KEY}`.
+
+### Create Discount with Coupon
+
+**Package**
+
+```php
+use Bensondevs\Mayar\Discounts\Discount;
+
+$discount = new Discount;
+$discount->name = 'Diskon Murmer';
+$discount->expiredAt = '2030-01-01T09:06:14.933Z';
+$discount->products = [];
+$discount->setDiscount([
+    'discountType' => 'monetary',
+    'eligibleCustomerType' => 'all',
+    'minimumPurchase' => 500000,
+    'value' => 100000,
+    'totalCoupons' => 100,
+]);
+$discount->setCoupon([
+    'code' => 'haribaik',
+    'type' => 'reusable',
+]);
+$discount->save();
+```
+
+**Mayar equivalent**
+
+```http
+POST {base}/coupon/create
+Authorization: Bearer {MAYAR_API_KEY}
+```
+
+**API reference:** [Create Discount with Coupon](https://docs.mayar.id/api-reference/discount/create)
+
+---
+
+### Validate Coupon
+
+**Package**
+
+```php
+use Bensondevs\Mayar\Discounts\Discount;
+
+$result = Discount::validate([
+    'paymentLinkId' => 'uuid',
+    'couponCode' => 'NFRBFUK',
+    'finalAmount' => 0,
+    'tickets' => [],
+    'customerEmail' => '',
+]);
+
+if ($result->valid) {
+    // $result->coupon contains coupon details from the API
+}
+```
+
+**Mayar equivalent**
+
+```http
+POST {base}/coupon/validate
+Authorization: Bearer {MAYAR_API_KEY}
+```
+
+**API reference:** [Validate Coupon](https://docs.mayar.id/api-reference/discount/validate)
+
+---
+
+### Get Coupon Detail
+
+**Package**
+
+```php
+use Bensondevs\Mayar\Discounts\Discount;
+
+$discount = Discount::find('uuid');
+$discount = Discount::findOrFail('uuid');
+```
+
+**Mayar equivalent**
+
+```http
+GET {base}/coupon/{id}
+Authorization: Bearer {MAYAR_API_KEY}
+```
+
+**API reference:** [Get Coupon Detail](https://docs.mayar.id/api-reference/discount/detail)
 
 ---
 

@@ -1,0 +1,15 @@
+{
+    "statusCode": 200,
+    "messages": "Success",
+    "data": {
+        "valid": true,
+        "coupon": {
+            "id": "08d233e9-91bc-4d9b-afc2-1dbbe38a1186",
+            "code": "143KYCN",
+            "discountType": "percentage",
+            "discountValue": 10,
+            "minimumPurchase": null,
+            "eligibleCustomerType": "all"
+        }
+    }
+}

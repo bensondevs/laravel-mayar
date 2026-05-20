@@ -1,0 +1,26 @@
+{
+    "statusCode": 200,
+    "messages": "Success",
+    "data": {
+        "id": "c9aa143a-53f9-44e7-a9c6-83229ad7199b",
+        "createdAt": 1755665561029,
+        "expiredAt": 1893488774933,
+        "discountType": "monetary",
+        "discountProductType": "all",
+        "eligibleCustomerType": "all",
+        "name": "Diskon Murmer",
+        "minimumPurchase": 500000,
+        "isLifeTime": null,
+        "totalCoupons": 100,
+        "value": 100000,
+        "coupons": [
+            {
+                "code": "haribaik",
+                "type": "reusable",
+                "expiredAt": "2030-01-01T09:06:14.933Z",
+                "isActive": true
+            }
+        ],
+        "productDiscount": []
+    }
+}

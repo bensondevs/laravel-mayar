@@ -1,0 +1,33 @@
+{
+    "statusCode": 200,
+    "messages": "Success",
+    "data": {
+        "id": "c9aa143a-53f9-44e7-a9c6-83229ad7199b",
+        "createdAt": 1755665561029,
+        "expiredAt": 1893488774933,
+        "productDiscount": [],
+        "discountType": "monetary",
+        "discountProductType": "all",
+        "eligibleCustomerType": "all",
+        "name": "Diskon Murmer",
+        "minimumPurchase": 500000,
+        "isLifeTime": null,
+        "totalCoupons": 100,
+        "value": 100000,
+        "coupons": [
+            {
+                "id": "532858fe-3722-4cf4-a8eb-f7c6765aba17",
+                "code": "haribaik",
+                "createdAt": 1755665561256,
+                "discountId": "c9aa143a-53f9-44e7-a9c6-83229ad7199b",
+                "endMonthTrial": null,
+                "expiredAt": 1893488774933,
+                "isActive": true,
+                "limit": 100,
+                "type": "reusable",
+                "updatedAt": 1755665561256,
+                "userId": "348e083d-315a-4e5c-96b1-5a2a98c48413"
+            }
+        ]
+    }
+}
