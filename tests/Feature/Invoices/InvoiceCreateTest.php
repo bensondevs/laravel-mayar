@@ -52,6 +52,48 @@ it('creates an invoice via save', function (): void {
     });
 });
 
+it('creates an invoice via create', function (): void {
+    Http::fake([
+        'https://api.mayar.club/hl/v1/invoice/create' => Http::response(
+            body: InvoiceFixtures::invoiceCreateResponse(),
+        ),
+    ]);
+
+    $invoice = Invoice::create([
+        'name' => 'andre jago',
+        'email' => 'user@example.com',
+        'mobile' => '085797522261',
+        'redirectUrl' => 'https://example.com/redirect',
+        'description' => 'testing invoice',
+        'expiredAt' => '2026-04-19T16:43:23.000Z',
+        'extraData' => [
+            'noCustomer' => '827hiueqy271hj',
+            'idProd' => 'contoh aja',
+        ],
+        'items' => [
+            ['quantity' => 3, 'rate' => 11000, 'description' => '1 item'],
+        ],
+    ]);
+
+    expect($invoice->id)->toBe('df65d192-8396-4f9a-b4e5-8244648c07c5')
+        ->and($invoice->exists())->toBeTrue();
+
+    Http::assertSent(function ($request): bool {
+        if ($request->url() !== 'https://api.mayar.club/hl/v1/invoice/create') {
+            return false;
+        }
+
+        $body = $request->data();
+
+        return $body['name'] === 'andre jago'
+            && $body['items'][0]['quantity'] === 3;
+    });
+});
+
+it('throws logic exception when create is called with an id', function (): void {
+    Invoice::create(['id' => 'df65d192-8396-4f9a-b4e5-8244648c07c5']);
+})->throws(LogicException::class);
+
 it('creates an invoice with constructor and setItems', function (): void {
     Http::fake([
         'https://api.mayar.club/hl/v1/invoice/create' => Http::response(

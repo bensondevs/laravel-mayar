@@ -7,7 +7,6 @@ use Bensondevs\Mayar\Installments\InstallmentTerms;
 use Bensondevs\Mayar\Tests\Feature\Installments\InstallmentFixtures;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Validation\ValidationException;
-use LogicException;
 
 it('creates an installment via save', function (): void {
     Http::fake([
@@ -47,6 +46,39 @@ it('creates an installment via save', function (): void {
             && $body['installment']['dueDate'] === 11;
     });
 });
+
+it('creates an installment via create', function (): void {
+    Http::fake([
+        'https://api.mayar.club/hl/v1/installment/create' => Http::response(
+            body: InstallmentFixtures::installmentCreateResponse(),
+        ),
+    ]);
+
+    $installment = Installment::create([
+        'name' => 'Azumii',
+        'email' => 'user@example.com',
+        'mobile' => '089961367511',
+        'amount' => 1500000,
+        'installment' => [
+            'description' => 'Cicil Produk Kelas Online 3 Bulan',
+            'interest' => 0,
+            'tenure' => 3,
+            'dueDate' => 11,
+        ],
+    ]);
+
+    expect($installment->id)->toBe('ba82c2dd-06c1-4b6c-bc59-a9c00801c842')
+        ->and($installment->exists())->toBeTrue();
+
+    Http::assertSent(function ($request): bool {
+        return $request->url() === 'https://api.mayar.club/hl/v1/installment/create'
+            && $request->data()['installment']['tenure'] === 3;
+    });
+});
+
+it('throws logic exception when create is called with an id', function (): void {
+    Installment::create(['id' => InstallmentFixtures::installmentCreateId()]);
+})->throws(LogicException::class);
 
 it('creates an installment with constructor and InstallmentTerms', function (): void {
     Http::fake([

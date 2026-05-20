@@ -80,7 +80,7 @@ For products, invoices, payment requests, installments, and discounts, use the [
 
 Module namespace: `Bensondevs\Mayar\Products\`
 
-API-backed `Product` resources use an Eloquent-*like* calling style (`find`, `paginate`, attribute access) but are not `Illuminate\Database\Eloquent\Model` instances and do not use a database. Pagination returns `Illuminate\Pagination\LengthAwarePaginator`. `Product::findOrFail()` throws `Bensondevs\Mayar\Exceptions\MayarNotFoundException` when the API returns no resource.
+API-backed `Product` resources use an Eloquent-*like* calling style (`find`, `paginate`, attribute access) but are not `Illuminate\Database\Eloquent\Model` instances and do not use a database. Products are read-only in this package (no `save()` or `Product::create()`). Pagination returns `Illuminate\Pagination\LengthAwarePaginator`. `Product::findOrFail()` throws `Bensondevs\Mayar\Exceptions\MayarNotFoundException` when the API returns no resource.
 
 Attribute names on resources match the Mayar API JSON exactly (for example `userId`, not `user_id`). `toArray()` and property access use those same keys. Cast keys in `Product::casts()` must use the API property names as well.
 
@@ -299,6 +299,23 @@ $invoice->addItem([
     'description' => 'Item description',
 ]);
 $invoice->save();
+
+// Static shorthand (equivalent to new Invoice($attrs)->save())
+$invoice = Invoice::create([
+    'name' => 'Customer name',
+    'email' => 'customer@example.com',
+    'mobile' => '081234567890',
+    'redirectUrl' => 'https://example.com/thanks',
+    'description' => 'Order notes',
+    'expiredAt' => '2026-04-19T16:43:23.000Z',
+    'extraData' => [
+        'noCustomer' => 'ref-123',
+        'idProd' => 'prod-456',
+    ],
+    'items' => [
+        ['quantity' => 1, 'rate' => 10000, 'description' => 'Item description'],
+    ],
+]);
 ```
 
 **Mayar equivalent**
@@ -485,6 +502,17 @@ $paymentRequest->redirectUrl = 'https://example.com/thanks';
 $paymentRequest->description = 'Payment description';
 $paymentRequest->expiredAt = '2025-12-29T09:41:09.401Z';
 $paymentRequest->save();
+
+// Static shorthand (equivalent to new PaymentRequest($attrs)->save())
+$paymentRequest = PaymentRequest::create([
+    'name' => 'Customer name',
+    'email' => 'customer@example.com',
+    'amount' => 170000,
+    'mobile' => '081234567890',
+    'redirectUrl' => 'https://example.com/thanks',
+    'description' => 'Payment description',
+    'expiredAt' => '2025-12-29T09:41:09.401Z',
+]);
 ```
 
 **Mayar equivalent**
@@ -679,6 +707,20 @@ $installment->setInstallment([
     'dueDate' => 11,
 ]);
 $installment->save();
+
+// Static shorthand (equivalent to new Installment($attrs)->save())
+$installment = Installment::create([
+    'name' => 'Customer name',
+    'email' => 'customer@example.com',
+    'mobile' => '081234567890',
+    'amount' => 1500000,
+    'installment' => [
+        'description' => 'Cicil Produk 3 Bulan',
+        'interest' => 0,
+        'tenure' => 3,
+        'dueDate' => 11,
+    ],
+]);
 ```
 
 **Mayar equivalent**
@@ -747,6 +789,24 @@ $discount->setCoupon([
     'type' => 'reusable',
 ]);
 $discount->save();
+
+// Static shorthand (equivalent to new Discount($attrs)->save())
+$discount = Discount::create([
+    'name' => 'Diskon Murmer',
+    'expiredAt' => '2030-01-01T09:06:14.933Z',
+    'products' => [],
+    'discount' => [
+        'discountType' => 'monetary',
+        'eligibleCustomerType' => 'all',
+        'minimumPurchase' => 500000,
+        'value' => 100000,
+        'totalCoupons' => 100,
+    ],
+    'coupon' => [
+        'code' => 'haribaik',
+        'type' => 'reusable',
+    ],
+]);
 ```
 
 **Mayar equivalent**

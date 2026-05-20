@@ -74,3 +74,7 @@ it('find or fail throws when product is missing', function (): void {
 
     Product::findOrFail('missing');
 })->throws(MayarNotFoundException::class);
+
+it('throws logic exception when create is called on product', function (): void {
+    Product::create([]);
+})->throws(LogicException::class);

@@ -8,6 +8,7 @@ use BackedEnum;
 use Bensondevs\Mayar\Clients\MayarClient;
 use Bensondevs\Mayar\Mayar;
 use InvalidArgumentException;
+use LogicException;
 
 abstract class MayarResource
 {
@@ -36,6 +37,26 @@ abstract class MayarResource
         $resource->fillFromMayar($payload);
 
         return $resource;
+    }
+
+    /**
+     * @param  array<string, mixed>  $attributes
+     */
+    public static function create(array $attributes = []): static
+    {
+        if (isset($attributes['id'])) {
+            throw new LogicException(
+                'Cannot create a resource with an id. Use update() for existing records.'
+            );
+        }
+
+        $instance = new static($attributes);
+
+        if (! method_exists($instance, 'save')) {
+            throw new LogicException(sprintf('%s does not support create.', static::class));
+        }
+
+        return $instance->save();
     }
 
     /**

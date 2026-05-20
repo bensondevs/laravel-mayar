@@ -42,6 +42,36 @@ it('creates a payment request via save', function (): void {
     });
 });
 
+it('creates a payment request via create', function (): void {
+    Http::fake([
+        'https://api.mayar.club/hl/v1/payment/create' => Http::response(
+            body: PaymentRequestFixtures::paymentRequestCreateResponse(),
+        ),
+    ]);
+
+    $paymentRequest = PaymentRequest::create([
+        'name' => 'Azumii',
+        'email' => 'user@example.com',
+        'amount' => 170000,
+        'mobile' => '08996136751',
+        'redirectUrl' => 'https://example.com/redirect',
+        'description' => 'Testing ReqPayment',
+        'expiredAt' => '2025-12-29T09:41:09.401Z',
+    ]);
+
+    expect($paymentRequest->id)->toBe('e890d24a-cfc0-4915-83d2-3166b9ffba9e')
+        ->and($paymentRequest->exists())->toBeTrue();
+
+    Http::assertSent(function ($request): bool {
+        return $request->url() === 'https://api.mayar.club/hl/v1/payment/create'
+            && $request->data()['amount'] === 170000;
+    });
+});
+
+it('throws logic exception when create is called with an id', function (): void {
+    PaymentRequest::create(['id' => 'e890d24a-cfc0-4915-83d2-3166b9ffba9e']);
+})->throws(LogicException::class);
+
 it('creates a payment request with constructor attributes', function (): void {
     Http::fake([
         'https://api.mayar.club/hl/v1/payment/create' => Http::response(
