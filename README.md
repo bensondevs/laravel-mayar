@@ -17,6 +17,7 @@ Laravel integration for the [Mayar Headless API](https://docs.mayar.id/api-refer
 - [Quick Usage](#quick-usage)
 - [Features](#features)
 - [Full Documentation](#full-documentation)
+- [Laravel Boost (AI Guideline)](#laravel-boost-ai-guideline)
 - [Develop and Test](#develop-and-test)
 - [License](#license)
 
@@ -132,6 +133,15 @@ Complete feature docs are available in dedicated files under [`docs/`](./docs/RE
 
 Webhook docs now include a complete inbound receiver guide (optional package route or manual route registration), event-listener wiring for all documented Mayar webhook event types, and DTO-based payload handling.
 - [⭐ Reviews](./docs/reviews.md)
+
+<a id="laravel-boost-ai-guideline"></a>
+## 🤖 Laravel Boost (AI Guideline)
+
+This package ships a Laravel Boost third-party guideline at:
+
+- `resources/boost/guidelines/core.blade.php`
+
+When this package is installed in a Laravel app that uses Boost, running `php artisan boost:install` (or `php artisan boost:update`) allows Boost-aware AI agents to load this package-specific guidance.
 
 <a id="develop-and-test"></a>
 ## 🧪 Develop and Test

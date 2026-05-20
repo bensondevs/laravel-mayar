@@ -62,9 +62,14 @@ Each dispatched event carries:
 - `$event->event` as raw event name
 - `$event->payload` as original webhook payload
 
-### 3) Listener example
+### 3) Listener registration (recommended: auto-discovery)
 
-Register listener in your app's event provider:
+Laravel can auto-discover listeners by default. Recommended approach:
+- Create your listener class with a typed `handle(...)` method.
+- Let Laravel discover it automatically (no manual `$listen` mapping needed).
+- Reference: [Laravel Events - Event Discovery](https://laravel.com/docs/events#event-discovery)
+
+If your app has event auto-discovery turned off, register the listener manually in your app's event provider:
 
 ```php
 use App\Listeners\HandleMayarPaymentReceived;
