@@ -25,3 +25,10 @@ it('detects ok and not found status codes', function (): void {
         ->and(MayarPayload::isNotFound(['statusCode' => HttpStatusCode::NotFound->value]))->toBeTrue()
         ->and(MayarPayload::isOk(['statusCode' => HttpStatusCode::NotFound->value]))->toBeFalse();
 });
+
+it('detects successful mayar envelopes', function (): void {
+    expect(MayarPayload::isSuccessful(['statusCode' => 200, 'messages' => 'success']))->toBeTrue()
+        ->and(MayarPayload::isSuccessful(['statusCode' => 200, 'messages' => 'sukses']))->toBeTrue()
+        ->and(MayarPayload::isSuccessful(['statusCode' => 200, 'messages' => 'Success']))->toBeTrue()
+        ->and(MayarPayload::isSuccessful(['statusCode' => 400, 'messages' => 'error']))->toBeFalse();
+});

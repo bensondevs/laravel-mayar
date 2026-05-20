@@ -1,0 +1,25 @@
+{
+    "statusCode": 200,
+    "messages": "success",
+    "hasMore": true,
+    "pageCount": 77,
+    "pageSize": 10,
+    "page": 1,
+    "data": [
+        {
+            "id": "7d567063-ad7f-48d5-9e84-0e41938783a5",
+            "createdAt": 1745919352229,
+            "nextDelivery": null,
+            "paymentLinkId": "688b6a9f-2893-4b8a-a637-a008d91d0cfc",
+            "payload": "{\"event\":\"payment.received\"}",
+            "status": "SUCCESS",
+            "type": "payment.received",
+            "updatedAt": 1745919352229,
+            "userId": "8afa8430-9ccd-4d33-9c1b-e0999a319994",
+            "paymentLinkTransactionId": "43b2f0ce-03f2-4f59-a341-299ea3ef19b6",
+            "urlDestination": "https://example.mayar.com",
+            "responsePayload": null,
+            "source": "AUTOMATIC"
+        }
+    ]
+}

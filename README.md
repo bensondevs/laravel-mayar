@@ -15,6 +15,7 @@ Laravel integration for the [Mayar Headless API](https://docs.mayar.id/api-refer
 - [Discounts](#discounts)
 - [Customers](#customers)
 - [Transactions](#transactions)
+- [Webhooks](#webhooks)
 - [Develop and test](#develop-and-test)
 - [Roadmap](#roadmap)
 
@@ -76,7 +77,7 @@ Mayar::mode(MayarMode::Production);
 Mayar::client()->get(uri: 'customer', query: ['page' => 1]);
 ```
 
-For products, invoices, payment requests, installments, discounts, customers, and transactions, use the [Products](#products), [Invoices](#invoices), [Payment Requests](#payment-requests), [Installments](#installments), [Discounts](#discounts), [Customers](#customers), and [Transactions](#transactions) modules below.
+For products, invoices, payment requests, installments, discounts, customers, transactions, and webhooks, use the [Products](#products), [Invoices](#invoices), [Payment Requests](#payment-requests), [Installments](#installments), [Discounts](#discounts), [Customers](#customers), [Transactions](#transactions), and [Webhooks](#webhooks) modules below.
 
 ## Products
 
@@ -1111,6 +1112,112 @@ Authorization: Bearer {MAYAR_API_KEY}
 ```
 
 **API reference:** [Create Dynamic QRCode](https://docs.mayar.id/api-reference/transaction/createdynamicqrcode)
+
+---
+
+## Webhooks
+
+Module namespace: `Bensondevs\Mayar\Webhooks\`
+
+The webhooks module covers paginated webhook delivery history and POST actions to register, test, and retry URL hooks. `WebhookHistory::paginate()` returns `Illuminate\Pagination\LengthAwarePaginator` of `WebhookHistory` instances. Register, test, and retry use the `Webhook` facade and return `bool` based on the Mayar envelope (`statusCode` + `messages`). The API returns webhook `payload` as a JSON string; the package keeps it as a string (no auto-decode).
+
+`{base}` is your configured API root. All requests require `Authorization: Bearer {MAYAR_API_KEY}`.
+
+### Get Webhook History
+
+**Package**
+
+```php
+use Bensondevs\Mayar\Webhooks\WebhookHistory;
+
+$paginator = WebhookHistory::paginate(page: 1, perPage: 10);
+
+foreach ($paginator as $history) {
+    echo $history->type;
+    echo $history->urlDestination;
+}
+```
+
+**Mayar equivalent**
+
+```http
+GET {base}/webhook/history?page=1&pageSize=10
+Authorization: Bearer {MAYAR_API_KEY}
+```
+
+**API reference:** [Get History](https://docs.mayar.id/api-reference/webhook/history)
+
+---
+
+### Register URL Hook
+
+**Package**
+
+```php
+use Bensondevs\Mayar\Webhooks\Webhook;
+
+$success = Webhook::register('https://example.com/webhook');
+```
+
+**Mayar equivalent**
+
+```http
+POST {base}/webhook/register
+Authorization: Bearer {MAYAR_API_KEY}
+Content-Type: application/json
+
+{"urlHook":"https://example.com/webhook"}
+```
+
+**API reference:** [Register URL Hook](https://docs.mayar.id/api-reference/webhook/registerurlhook)
+
+---
+
+### Test URL Hook
+
+**Package**
+
+```php
+use Bensondevs\Mayar\Webhooks\Webhook;
+
+$success = Webhook::test('https://example.com/webhook');
+```
+
+**Mayar equivalent**
+
+```http
+POST {base}/webhook/test
+Authorization: Bearer {MAYAR_API_KEY}
+Content-Type: application/json
+
+{"urlHook":"https://example.com/webhook"}
+```
+
+**API reference:** [Test URL Hook](https://docs.mayar.id/api-reference/webhook/testurlhook)
+
+---
+
+### Retry Webhook History
+
+**Package**
+
+```php
+use Bensondevs\Mayar\Webhooks\Webhook;
+
+$success = Webhook::retry('7d567063-ad7f-48d5-9e84-0e41938783a5');
+```
+
+**Mayar equivalent**
+
+```http
+POST {base}/webhook/retry
+Authorization: Bearer {MAYAR_API_KEY}
+Content-Type: application/json
+
+{"webhookHistoryId":"7d567063-ad7f-48d5-9e84-0e41938783a5"}
+```
+
+**API reference:** [Retry History](https://docs.mayar.id/api-reference/webhook/retryhistory)
 
 ---
 

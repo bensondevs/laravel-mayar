@@ -48,4 +48,13 @@ final class MayarPayload
 
         return is_array($data) ? $data : [];
     }
+
+    /**
+     * @param  array<string, mixed>  $payload
+     */
+    public static function isSuccessful(array $payload): bool
+    {
+        return self::isOk($payload)
+            || in_array($payload['messages'] ?? '', ['success', 'sukses', 'Success'], true);
+    }
 }
