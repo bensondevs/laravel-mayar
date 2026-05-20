@@ -1,0 +1,7 @@
+{
+    "statusCode": 200,
+    "messages": "success",
+    "customerBalance": 50990,
+    "customerBalanceMembership": 0,
+    "customerBalanceAddon": 50990
+}

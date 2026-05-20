@@ -1,0 +1,23 @@
+{
+    "statusCode": 200,
+    "messages": "success",
+    "total": 10,
+    "page": 1,
+    "limit": 5,
+    "totalPages": 2,
+    "data": [
+        {
+            "id": "68a84724c8d5f89bdeae7346",
+            "createdAt": "2025-08-22T10:32:04.204Z",
+            "amount": -100000,
+            "productId": "40f26fbe-f4d8-4693-975f-e6d105d291e6",
+            "status": "ACTIVE",
+            "membershipTierId": "9bbbfa01-1bf8-4e4d-8470-cdf7066b6ea2",
+            "customerId": "faa4ee60-cf45-4043-b964-303890713bb9",
+            "merchantId": "35776524-8ea9-46ac-b2dd-89efc496593f",
+            "walletType": "MEMBERSHIP",
+            "type": "EXPIRE_VOID",
+            "referenceId": "68a56306c8d5f89bdeae32fd"
+        }
+    ]
+}

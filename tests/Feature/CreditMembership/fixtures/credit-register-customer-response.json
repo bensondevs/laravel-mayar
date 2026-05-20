@@ -1,0 +1,17 @@
+{
+    "statusCode": 200,
+    "messages": "success",
+    "membershipCustomer": {
+        "id": "68ca1a1c-7ed8-47f3-a5c2-c5ff314dd750",
+        "userId": "35776524-8ea9-46ac-b2dd-89efc496593f",
+        "paymentLinkId": "40f26fbe-f4d8-4693-975f-e6d105d291e6",
+        "createdAt": 1756088397669,
+        "nextPayment": 1758766797571,
+        "isLifetimePeriod": null,
+        "paymentLink": {
+            "id": "40f26fbe-f4d8-4693-975f-e6d105d291e6",
+            "name": "produk baru 2",
+            "description": "<p class='preserveHtml'>xcxcxccx</p>\n"
+        }
+    }
+}

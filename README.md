@@ -11,6 +11,7 @@ Laravel integration for the [Mayar Headless API](https://docs.mayar.id/api-refer
 - [Products](#products)
 - [Software license codes](#software-license-codes)
 - [SaaS Membership](#saas-membership)
+- [Credit Membership](#credit-membership)
 - [Invoices](#invoices)
 - [Payment Requests](#payment-requests)
 - [Installments](#installments)
@@ -79,7 +80,7 @@ Mayar::mode(MayarMode::Production);
 Mayar::client()->get(uri: 'customer', query: ['page' => 1]);
 ```
 
-For products, software license codes, SaaS membership, invoices, payment requests, installments, discounts, customers, transactions, and webhooks, use the [Products](#products), [Software license codes](#software-license-codes), [SaaS Membership](#saas-membership), [Invoices](#invoices), [Payment Requests](#payment-requests), [Installments](#installments), [Discounts](#discounts), [Customers](#customers), [Transactions](#transactions), and [Webhooks](#webhooks) modules below.
+For products, software license codes, SaaS membership, credit membership, invoices, payment requests, installments, discounts, customers, transactions, and webhooks, use the [Products](#products), [Software license codes](#software-license-codes), [SaaS Membership](#saas-membership), [Credit Membership](#credit-membership), [Invoices](#invoices), [Payment Requests](#payment-requests), [Installments](#installments), [Discounts](#discounts), [Customers](#customers), [Transactions](#transactions), and [Webhooks](#webhooks) modules below.
 
 ## Products
 
@@ -409,6 +410,174 @@ Content-Type: application/json
 ```
 
 **API reference:** [Deactivate License](https://docs.mayar.id/api-reference/saas/deactivate)
+
+---
+
+## Credit Membership
+
+Module namespace: `Bensondevs\Mayar\CreditMembership\`
+
+Manage usage-based credit membership operations via the Mayar **Credit** API (`/credit/v1`). Use `CreditHistory::paginate()` for Eloquent-style paginated history and `CreditMembership` static methods for balance, spend, add credit, and member registration workflows.
+
+`{creditBase}` is the Credit API root:
+
+- Sandbox: `https://api.mayar.club/credit/v1`
+- Production: `https://api.mayar.id/credit/v1`
+
+All requests require `Authorization: Bearer {MAYAR_API_KEY}`.
+
+### Get customer balance
+
+**Package**
+
+```php
+use Bensondevs\Mayar\CreditMembership\CreditMembership;
+
+$balance = CreditMembership::customerBalance([
+    'productId' => 'YOUR-PRODUCT-ID',
+    'membershipTierId' => 'YOUR-MEMBERSHIP-TIER-ID',
+    'memberId' => 'PQVS4KGY', // or use customerId
+]);
+
+echo $balance->customerBalance;
+echo $balance->customerBalanceMembership;
+echo $balance->customerBalanceAddon;
+```
+
+**Mayar equivalent**
+
+```http
+GET {creditBase}/credit/customer/balance?productId={productId}&membershipTierId={membershipTierId}&memberId={memberId}
+Authorization: Bearer {MAYAR_API_KEY}
+```
+
+**API reference:** [Get Customer Balance](https://docs.mayar.id/api-reference/usagebasedmembership/customerbalance)
+
+---
+
+### Paginate customer credit history
+
+**Package**
+
+```php
+use Bensondevs\Mayar\CreditMembership\CreditHistory;
+
+$paginator = CreditHistory::paginate(
+    identityId: 'PQVS4KGY',
+    page: 1,
+    perPage: 5,
+    filters: [
+        'productId' => 'YOUR-PRODUCT-ID',
+        'membershipTierId' => 'YOUR-MEMBERSHIP-TIER-ID',
+        'sortOrder' => 'desc',
+    ],
+);
+```
+
+`identityId` is the path segment used by Mayar (`memberId` or `customerId`), while remaining filters are query parameters.
+
+**Mayar equivalent**
+
+```http
+GET {creditBase}/credit/customer/paginate-credit-history/{identityId}?productId={productId}&membershipTierId={membershipTierId}&page=1&limit=5
+Authorization: Bearer {MAYAR_API_KEY}
+```
+
+**API reference:** [Get Paginate Customer Credit History](https://docs.mayar.id/api-reference/usagebasedmembership/paginatecustomercredithistory)
+
+---
+
+### Spend customer credit
+
+**Package**
+
+```php
+use Bensondevs\Mayar\CreditMembership\CreditMembership;
+
+$success = CreditMembership::spend([
+    'productId' => 'YOUR-PRODUCT-ID',
+    'membershipTierId' => 'YOUR-MEMBERSHIP-TIER-ID',
+    'amount' => 10,
+    'memberId' => 'PQVS4KGY', // or use customerId
+]);
+```
+
+**Mayar equivalent**
+
+```http
+POST {creditBase}/credit/customer/spend
+Authorization: Bearer {MAYAR_API_KEY}
+Content-Type: application/json
+
+{"productId":"YOUR-PRODUCT-ID","membershipTierId":"YOUR-MEMBERSHIP-TIER-ID","amount":10,"memberId":"PQVS4KGY"}
+```
+
+**API reference:** [Spend Customer Credit](https://docs.mayar.id/api-reference/usagebasedmembership/spendcustomercredit)
+
+---
+
+### Add customer credit
+
+**Package**
+
+```php
+use Bensondevs\Mayar\CreditMembership\CreditMembership;
+
+$result = CreditMembership::addCredit([
+    'productId' => 'YOUR-PRODUCT-ID',
+    'membershipTierId' => 'YOUR-MEMBERSHIP-TIER-ID',
+    'amount' => 100,
+    'customerId' => 'YOUR-CUSTOMER-ID', // or use memberId
+]);
+
+echo $result->customerBalance;
+```
+
+**Mayar equivalent**
+
+```http
+POST {creditBase}/credit/customer/add-credit
+Authorization: Bearer {MAYAR_API_KEY}
+Content-Type: application/json
+
+{"productId":"YOUR-PRODUCT-ID","membershipTierId":"YOUR-MEMBERSHIP-TIER-ID","amount":100,"customerId":"YOUR-CUSTOMER-ID"}
+```
+
+**API reference:** [Add Customer Credit](https://docs.mayar.id/api-reference/usagebasedmembership/addcustomercredit)
+
+---
+
+### Register new membership customer
+
+**Package**
+
+```php
+use Bensondevs\Mayar\CreditMembership\CreditMembership;
+
+$result = CreditMembership::registerCustomer([
+    'productId' => 'YOUR-PRODUCT-ID',
+    'membershipTierId' => 'YOUR-MEMBERSHIP-TIER-ID',
+    'membershipMonthlyPeriod' => 1,
+    'trialCredit' => 100,
+    'customerInfo' => [
+        'name' => 'Customer name',
+        'email' => 'customer@example.com',
+        'mobile' => '081234567890',
+    ],
+]);
+
+echo $result->membershipCustomer['id'];
+```
+
+**Mayar equivalent**
+
+```http
+POST {creditBase}/credit/membership/customer/regist
+Authorization: Bearer {MAYAR_API_KEY}
+Content-Type: application/json
+```
+
+**API reference:** [Regist New Membership Customer](https://docs.mayar.id/api-reference/usagebasedmembership/registnewmembershipcustomer)
 
 ---
 

@@ -47,4 +47,12 @@ enum MayarMode: string
             self::Production => 'https://api.mayar.id/saas/v1',
         };
     }
+
+    public function creditBaseUrl(): string
+    {
+        return match ($this) {
+            self::Sandbox => 'https://api.mayar.club/credit/v1',
+            self::Production => 'https://api.mayar.id/credit/v1',
+        };
+    }
 }
