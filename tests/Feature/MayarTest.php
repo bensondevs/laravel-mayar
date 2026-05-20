@@ -30,7 +30,7 @@ it('resolves production client after mode switch', function (): void {
     ]);
 
     Mayar::mode('production');
-    Mayar::client()->get('product', ['page' => 1]);
+    Mayar::client()->get(uri: 'product', query: ['page' => 1]);
 
     Http::assertSent(fn ($request): bool => str_starts_with($request->url(), 'https://api.mayar.id/hl/v1/product'));
 });

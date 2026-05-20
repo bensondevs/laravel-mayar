@@ -12,6 +12,6 @@ class MayarRequestException extends MayarException
         public readonly ?string $mayarMessage = null,
         public readonly ?array $response = null,
     ) {
-        parent::__construct($message, $statusCode ?? 0);
+        parent::__construct(message: $message, code: $statusCode ?? 0);
     }
 }

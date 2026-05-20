@@ -8,6 +8,7 @@ use Bensondevs\Mayar\Enums\MayarMode;
 use Bensondevs\Mayar\Exceptions\MayarRequestException;
 use Bensondevs\Mayar\Http\Authentication;
 use Bensondevs\Mayar\Http\Endpoint;
+use BensonDevs\SuperchargedEnums\Common\Http\HttpStatusCode;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
 
@@ -35,45 +36,34 @@ class MayarClient
     /**
      * @param  array<string, mixed>  $query
      * @return array<string, mixed>
+     *
+     * @throws MayarRequestException
      */
     public function get(string $uri, array $query = []): array
     {
-        return $this->request('get', $uri, $query);
+        return $this->request(method: 'get', uri: $uri, query: $query);
     }
 
     /**
      * @param  array<string, mixed>  $data
      * @return array<string, mixed>
+     *
+     * @throws MayarRequestException
      */
     public function post(string $uri, array $data = []): array
     {
-        return $this->request('post', $uri, [], $data);
+        return $this->request(method: 'post', uri: $uri, query: [], body: $data);
     }
 
-    public function getCustomers(array $query = []): array
+    /**
+     * @param  array<string, mixed>  $query
+     * @return array<string, mixed>
+     *
+     * @throws MayarRequestException
+     */
+    public function getUrl(string $url, array $query = []): array
     {
-        $response = $this->send('get', $this->endpoint->customers(), $query);
-
-        return $this->unwrapListResponse($response);
-    }
-
-    public function getCustomerByEmail(string $email): array
-    {
-        $response = $this->send('get', $this->endpoint->customerByEmail(), ['email' => $email]);
-
-        return $this->unwrapResponse($response);
-    }
-
-    public function getProducts(array $query = []): array
-    {
-        $response = $this->send('get', $this->endpoint->products(), $query);
-
-        return $this->unwrapListResponse($response);
-    }
-
-    public function getProduct(string $id): array
-    {
-        $response = $this->send('get', $this->endpoint->product($id));
+        $response = $this->send(method: 'get', url: $url, query: $query);
 
         return $this->unwrapResponse($response);
     }
@@ -82,6 +72,8 @@ class MayarClient
      * @param  array<string, mixed>  $query
      * @param  array<string, mixed>  $body
      * @return array<string, mixed>
+     *
+     * @throws MayarRequestException
      */
     protected function request(string $method, string $uri, array $query = [], array $body = []): array
     {
@@ -89,7 +81,7 @@ class MayarClient
             ? $uri
             : $this->endpoint->url($uri);
 
-        $response = $this->send($method, $url, $query, $body);
+        $response = $this->send(method: $method, url: $url, query: $query, body: $body);
 
         return $this->unwrapResponse($response);
     }
@@ -97,8 +89,10 @@ class MayarClient
     /**
      * @param  array<string, mixed>  $query
      * @param  array<string, mixed>  $body
+     *
+     * @throws MayarRequestException
      */
-    protected function send(string $method, string $url, array $query = [], array $body = []): Response
+    public function send(string $method, string $url, array $query = [], array $body = []): Response
     {
         $pending = Http::withHeaders(Authentication::headers($this->apiKey));
 
@@ -114,16 +108,17 @@ class MayarClient
         $payload = $response->json();
 
         if (! is_array($payload)) {
-            throw new MayarRequestException(
-                'Mayar API returned an invalid response.',
-                $response->status(),
-            );
+            $this->throwRequestException($response);
         }
 
-        $statusCode = $payload['statusCode'] ?? $response->status();
+        $statusCode = (int) ($payload['statusCode'] ?? $response->status());
 
-        if ((int) $statusCode !== 200) {
-            $this->throwRequestException($response, $payload);
+        if (! HttpStatusCode::Ok->is($statusCode)) {
+            if (HttpStatusCode::NotFound->is($statusCode)) {
+                return $response;
+            }
+
+            $this->throwRequestException(response: $response, payload: $payload);
         }
 
         return $response;
@@ -132,19 +127,11 @@ class MayarClient
     /**
      * @return array<string, mixed>
      */
-    protected function unwrapResponse(Response $response): array
+    public function unwrapResponse(Response $response): array
     {
         $payload = $response->json();
 
         return is_array($payload) ? $payload : [];
-    }
-
-    /**
-     * @return array<string, mixed>
-     */
-    protected function unwrapListResponse(Response $response): array
-    {
-        return $this->unwrapResponse($response);
     }
 
     /**
@@ -161,10 +148,10 @@ class MayarClient
             : $response->status();
 
         throw new MayarRequestException(
-            $mayarMessage ?? 'Mayar API request failed.',
-            $statusCode,
-            is_string($mayarMessage) ? $mayarMessage : null,
-            is_array($payload) ? $payload : null,
+            message: $mayarMessage ?? 'Mayar API request failed.',
+            statusCode: $statusCode,
+            mayarMessage: is_string($mayarMessage) ? $mayarMessage : null,
+            response: is_array($payload) ? $payload : null,
         );
     }
 }

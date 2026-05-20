@@ -1,0 +1,42 @@
+{
+    "statusCode": 200,
+    "messages": "success",
+    "hasMore": true,
+    "pageCount": 14,
+    "pageSize": "10",
+    "page": 1,
+    "data": [
+        {
+            "id": "fca92d4c-33e8-4334-b2f3-491af6d78a5b",
+            "amount": 200000,
+            "category": null,
+            "createdAt": 1692004154797,
+            "description": "<p><span style=\"color: rgb(51,51,51);background-color: rgb(251,252,252);font-size: 18px;font-family: Open Sans;\">The Invisible Man</span> <span style=\"color: rgb(51,51,51);background-color: rgb(251,252,252);font-size: 18px;font-family: Open Sans;\">(1897) is one of the most famous science fiction novels of all time. Written by H.G. Wells (1866-1946), it tells the story of a scientist who discovers the secret of invisibility and uses it on himself. The story begins as the Invisible Man, with a bandaged face and a heavy coat and gloves, takes a train to lodge in a country inn whilst he tries to discover the antidote and make himself visible again. The book inspired several films and is notable for its vivid descriptions of the invisible man-no mean feat, given that you can't see him!</span>&nbsp;</p>\n",
+            "link": "invisible-man",
+            "type": "audiobook",
+            "subType": null,
+            "status": "active",
+            "name": "Invisible Man",
+            "limit": null,
+            "redirectUrl": null,
+            "installmentId": null,
+            "variant": null,
+            "membershipTier": [],
+            "event": null,
+            "order": null,
+            "coverImageId": "2529541f-dc98-4ca0-93bb-3c1d35a8dd07",
+            "multipleImageId": null,
+            "multipleImage": null,
+            "coverImage": {
+                "id": "2529541f-dc98-4ca0-93bb-3c1d35a8dd07",
+                "fileType": "jpeg",
+                "url": "https://media.mayar.id/images/2529541f-dc98-4ca0-93bb-3c1d35a8dd07.jpeg"
+            },
+            "variants": null,
+            "transactions": [],
+            "linkUrl": "https://testingmayar.myr.id/audiobook/invisible-man",
+            "linkPayment": "https://testingmayar.myr.id/pl/invisible-man"
+        }
+    ],
+    "total": 1
+}

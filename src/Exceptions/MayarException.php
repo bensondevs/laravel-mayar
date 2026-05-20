@@ -6,6 +6,4 @@ namespace Bensondevs\Mayar\Exceptions;
 
 use Exception;
 
-class MayarException extends Exception
-{
-}
+class MayarException extends Exception {}

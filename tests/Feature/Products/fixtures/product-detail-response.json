@@ -1,0 +1,59 @@
+{
+    "statusCode": 200,
+    "messages": "success",
+    "data": {
+        "id": "6f8c19ff-5b97-4792-aa89-d2a12797b356",
+        "link": "pembuatan-jasa-web",
+        "name": "Pembuatan Jasa Web",
+        "category": null,
+        "limit": null,
+        "type": "generic_link",
+        "subType": null,
+        "variant": "[{\"id\":\"986cb91e-70ee-4579-a046-3201f936e6e1\",\"name\":\"Landing Page \",\"description\":\"<p></p>\\n\",\"amount\":100000,\"limit\":null,\"notes\":\"\",\"redirectUrl\":\"\",\"status\":\"ACTIVE\",\"createdAt\":1778236239496},{\"id\":\"99de25dc-0302-4d64-9467-6f1c85fbc1bb\",\"name\":\"Sistem Crud\",\"description\":\"<p></p>\\n\",\"amount\":500000,\"limit\":null,\"notes\":\"\",\"redirectUrl\":\"\",\"status\":\"ACTIVE\",\"createdAt\":1778236254836}]",
+        "userId": "348e083d-315a-4e5c-96b1-5a2a98c48413",
+        "membershipTier": [],
+        "event": null,
+        "order": null,
+        "qty": null,
+        "amount": 100000,
+        "status": "active",
+        "description": "<p>Testing</p>\n",
+        "coverImageId": null,
+        "multipleImageId": "62840541-d45d-4e3f-a13a-e4f8bcdf4e5d",
+        "transactions": [],
+        "coverImage": null,
+        "multipleImage": [
+            {
+                "id": "503d493e-7ae5-4892-80a6-b925e057698f",
+                "fileType": "jpeg",
+                "url": "https://media.mayar.id/images/503d493e-7ae5-4892-80a6-b925e057698f.jpeg"
+            }
+        ],
+        "linkUrl": "https://testingmayar.myr.id/plink/pembuatan-jasa-web",
+        "linkPayment": "https://testingmayar.myr.id/pl/pembuatan-jasa-web",
+        "variants": [
+            {
+                "id": "986cb91e-70ee-4579-a046-3201f936e6e1",
+                "name": "Landing Page ",
+                "description": "<p></p>\n",
+                "amount": 100000,
+                "limit": null,
+                "notes": "",
+                "redirectUrl": "",
+                "status": "ACTIVE",
+                "createdAt": 1778236239496
+            },
+            {
+                "id": "99de25dc-0302-4d64-9467-6f1c85fbc1bb",
+                "name": "Sistem Crud",
+                "description": "<p></p>\n",
+                "amount": 500000,
+                "limit": null,
+                "notes": "",
+                "redirectUrl": "",
+                "status": "ACTIVE",
+                "createdAt": 1778236254836
+            }
+        ]
+    }
+}

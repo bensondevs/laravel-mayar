@@ -22,7 +22,7 @@ class Authentication
         }
 
         return [
-            'Authorization' => 'Bearer '.$apiKey,
+            'Authorization' => 'Bearer ' . $apiKey,
             'Accept' => 'application/json',
             'Content-Type' => 'application/json',
         ];

@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use Bensondevs\Mayar\Clients\MayarClient;
-use Bensondevs\Mayar\Enums\MayarMode;
 use Bensondevs\Mayar\Exceptions\MayarRequestException;
 use Illuminate\Support\Facades\Http;
 
@@ -21,7 +20,7 @@ it('fetches customer list from the sandbox api', function (): void {
         ]),
     ]);
 
-    $response = app(MayarClient::class)->get('customer', ['page' => 1, 'pageSize' => 10]);
+    $response = app(MayarClient::class)->get(uri: 'customer', query: ['page' => 1, 'pageSize' => 10]);
 
     expect($response['data'])->toHaveCount(1)
         ->and($response['data'][0]['email'])->toBe('a@example.com');
@@ -32,31 +31,12 @@ it('fetches customer list from the sandbox api', function (): void {
     });
 });
 
-it('fetches product detail', function (): void {
-    Http::fake([
-        'https://api.mayar.club/hl/v1/product/prod-123' => Http::response([
-            'statusCode' => 200,
-            'messages' => 'success',
-            'data' => [
-                'id' => 'prod-123',
-                'name' => 'Test Product',
-            ],
-        ]),
-    ]);
-
-    $client = app(MayarClient::class);
-
-    $response = $client->getProduct('prod-123');
-
-    expect($response['data']['name'])->toBe('Test Product');
-});
-
 it('throws when the api returns unauthorized', function (): void {
     Http::fake([
-        'https://api.mayar.club/hl/v1/customer*' => Http::response([
+        'https://api.mayar.club/hl/v1/customer*' => Http::response(body: [
             'statusCode' => 401,
             'messages' => 'Unauthorized',
-        ], 401),
+        ], status: 401),
     ]);
 
     app(MayarClient::class)->get('customer');

@@ -15,7 +15,7 @@ class Mayar
         return app(MayarClient::class);
     }
 
-    public static function mode(MayarMode|string $mode): void
+    public static function mode(MayarMode | string $mode): void
     {
         $resolved = $mode instanceof MayarMode
             ? $mode

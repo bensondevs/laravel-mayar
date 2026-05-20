@@ -13,7 +13,7 @@ class MayarServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->mergeConfigFrom(
-            dirname(__DIR__, 2).'/config/mayar.php',
+            dirname(__DIR__, 2) . '/config/mayar.php',
             'mayar',
         );
 
@@ -29,7 +29,7 @@ class MayarServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                dirname(__DIR__, 2).'/config/mayar.php' => $this->app->configPath('mayar.php'),
+                dirname(__DIR__, 2) . '/config/mayar.php' => $this->app->configPath('mayar.php'),
             ], 'mayar-config');
         }
     }
