@@ -7,7 +7,6 @@ namespace Bensondevs\Mayar\Products;
 use Bensondevs\Mayar\Exceptions\MayarNotFoundException;
 use Bensondevs\Mayar\Models\MayarQuery;
 use Bensondevs\Mayar\Products\Enums\ProductType;
-use BensonDevs\SuperchargedEnums\Common\Http\HttpStatusCode;
 use Illuminate\Pagination\LengthAwarePaginator;
 use InvalidArgumentException;
 
@@ -69,7 +68,7 @@ class ProductQuery extends MayarQuery
 
         $payload = static::mayarClient()->getUrl($endpoint->show($id));
 
-        if (HttpStatusCode::NotFound->is($payload['statusCode'] ?? null)) {
+        if ($this->isPayloadNotFound($payload)) {
             return null;
         }
 

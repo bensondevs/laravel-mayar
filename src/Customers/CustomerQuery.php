@@ -6,7 +6,6 @@ namespace Bensondevs\Mayar\Customers;
 
 use Bensondevs\Mayar\Exceptions\MayarNotFoundException;
 use Bensondevs\Mayar\Models\MayarQuery;
-use BensonDevs\SuperchargedEnums\Common\Http\HttpStatusCode;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 /**
@@ -37,7 +36,7 @@ class CustomerQuery extends MayarQuery
             query: ['email' => $email],
         );
 
-        if (HttpStatusCode::NotFound->is($payload['statusCode'] ?? null)) {
+        if ($this->isPayloadNotFound($payload)) {
             return null;
         }
 

@@ -6,7 +6,6 @@ namespace Bensondevs\Mayar\Installments;
 
 use Bensondevs\Mayar\Exceptions\MayarNotFoundException;
 use Bensondevs\Mayar\Models\MayarQuery;
-use BensonDevs\SuperchargedEnums\Common\Http\HttpStatusCode;
 
 /**
  * @extends MayarQuery<Installment>
@@ -19,7 +18,7 @@ class InstallmentQuery extends MayarQuery
 
         $payload = static::mayarClient()->getUrl($endpoint->show($id));
 
-        if (HttpStatusCode::NotFound->is($payload['statusCode'] ?? null)) {
+        if ($this->isPayloadNotFound($payload)) {
             return null;
         }
 

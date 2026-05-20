@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bensondevs\Mayar\Customers;
 
+use Bensondevs\Mayar\Http\MayarPayload;
 use Bensondevs\Mayar\Models\MayarResource;
 use Illuminate\Pagination\LengthAwarePaginator;
 use LogicException;
@@ -62,9 +63,8 @@ class Customer extends MayarResource
         $response = static::mayarClient()->postUrl($endpoint->update(), $payload);
 
         $message = $response['messages'] ?? '';
-        $statusCode = (int) ($response['statusCode'] ?? 0);
 
-        return $statusCode === 200
+        return MayarPayload::isOk($response)
             || $message === 'success'
             || $message === 'sukses';
     }

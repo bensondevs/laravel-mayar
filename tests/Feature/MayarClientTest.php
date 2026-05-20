@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Bensondevs\Mayar\Clients\MayarClient;
 use Bensondevs\Mayar\Exceptions\MayarRequestException;
+use BensonDevs\SuperchargedEnums\Common\Http\HttpStatusCode;
 use Illuminate\Support\Facades\Http;
 
 it('fetches customer list from the sandbox api', function (): void {
@@ -34,9 +35,9 @@ it('fetches customer list from the sandbox api', function (): void {
 it('throws when the api returns unauthorized', function (): void {
     Http::fake([
         'https://api.mayar.club/hl/v1/customer*' => Http::response(body: [
-            'statusCode' => 401,
+            'statusCode' => HttpStatusCode::Unauthorized->value,
             'messages' => 'Unauthorized',
-        ], status: 401),
+        ], status: HttpStatusCode::Unauthorized->value),
     ]);
 
     app(MayarClient::class)->get('customer');

@@ -8,6 +8,7 @@ use Bensondevs\Mayar\Enums\MayarMode;
 use Bensondevs\Mayar\Exceptions\MayarRequestException;
 use Bensondevs\Mayar\Http\Authentication;
 use Bensondevs\Mayar\Http\Endpoint;
+use Bensondevs\Mayar\Http\MayarPayload;
 use BensonDevs\SuperchargedEnums\Common\Http\HttpStatusCode;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
@@ -124,7 +125,7 @@ class MayarClient
             $this->throwRequestException($response);
         }
 
-        $statusCode = (int) ($payload['statusCode'] ?? $response->status());
+        $statusCode = MayarPayload::statusCode($payload) ?? $response->status();
 
         if (! HttpStatusCode::Ok->is($statusCode)) {
             if (HttpStatusCode::NotFound->is($statusCode)) {
@@ -157,7 +158,7 @@ class MayarClient
         $payload ??= $response->json();
         $mayarMessage = is_array($payload) ? ($payload['messages'] ?? null) : null;
         $statusCode = is_array($payload)
-            ? (int) ($payload['statusCode'] ?? $response->status())
+            ? (MayarPayload::statusCode($payload) ?? $response->status())
             : $response->status();
 
         throw new MayarRequestException(

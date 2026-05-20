@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bensondevs\Mayar\Models;
 
 use Bensondevs\Mayar\Clients\MayarClient;
+use Bensondevs\Mayar\Http\MayarPayload;
 use Bensondevs\Mayar\Mayar;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
@@ -57,6 +58,14 @@ abstract class MayarQuery
     protected static function mayarClient(): MayarClient
     {
         return Mayar::client();
+    }
+
+    /**
+     * @param  array<string, mixed>  $payload
+     */
+    protected function isPayloadNotFound(array $payload): bool
+    {
+        return MayarPayload::isNotFound($payload);
     }
 
     /**
