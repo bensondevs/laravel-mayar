@@ -26,4 +26,22 @@ return [
     */
     'mode' => env('MAYAR_MODE', 'sandbox'),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Mayar Webhook Receiver
+    |--------------------------------------------------------------------------
+    |
+    | Enable the inbound webhook route provided by this package. You may keep
+    | this disabled and manually register the controller in your own routes
+    | file when you need full control over endpoint URL and middleware.
+    |
+    */
+    'webhook' => [
+        'enabled' => env('MAYAR_WEBHOOK_ROUTE_ENABLED', true),
+        'path' => env('MAYAR_WEBHOOK_ROUTE_PATH', 'webhooks/mayar'),
+        'middleware' => ['api'],
+        'name' => 'mayar.webhook',
+        'ignore_unknown_events' => env('MAYAR_WEBHOOK_IGNORE_UNKNOWN_EVENTS', true),
+    ],
+
 ];

@@ -27,6 +27,10 @@ class MayarServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        if ((bool) config('mayar.webhook.enabled', true)) {
+            $this->loadRoutesFrom(dirname(__DIR__, 2) . '/routes/mayar-webhook.php');
+        }
+
         if ($this->app->runningInConsole()) {
             $this->publishes([
                 dirname(__DIR__, 2) . '/config/mayar.php' => $this->app->configPath('mayar.php'),

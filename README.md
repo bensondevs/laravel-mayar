@@ -109,6 +109,7 @@ $invoice = Invoice::create([
 - `Customers`: list, search by email, create, update email, portal link.
 - `Transactions`: balance, unpaid list, daily stats, dynamic QR.
 - `Webhooks`: history, register, test, retry.
+- `Webhook Receiver`: inbound webhook controller with event-driven listener handling and DTO payload access.
 - `Reviews`: paginated list.
 
 <a id="full-documentation"></a>
@@ -128,6 +129,8 @@ Complete feature docs are available in dedicated files under [`docs/`](./docs/RE
 - [👤 Customers](./docs/customers.md)
 - [📊 Transactions](./docs/transactions.md)
 - [🪝 Webhooks](./docs/webhooks.md)
+
+Webhook docs now include a complete inbound receiver guide (optional package route or manual route registration), event-listener wiring for all documented Mayar webhook event types, and DTO-based payload handling.
 - [⭐ Reviews](./docs/reviews.md)
 
 <a id="develop-and-test"></a>
