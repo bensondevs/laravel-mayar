@@ -1,0 +1,8 @@
+{
+    "statusCode": 200,
+    "message": "success",
+    "data": {
+        "customerId": "bcf56452-ec21-4791-aca2-7a41b033e9d2",
+        "paymentLinkId": "43eadce2-bc52-4e38-a832-93fb835f2a69"
+    }
+}

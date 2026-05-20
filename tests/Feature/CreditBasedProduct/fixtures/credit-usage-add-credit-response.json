@@ -1,0 +1,10 @@
+{
+    "statusCode": 200,
+    "message": "success",
+    "data": {
+        "customerId": "faa4ee60-cf45-4043-b964-303890713bb9",
+        "productId": "40f26fbe-f4d8-4693-975f-e6d105d291e6",
+        "amount": 100,
+        "customerBalance": 911090
+    }
+}

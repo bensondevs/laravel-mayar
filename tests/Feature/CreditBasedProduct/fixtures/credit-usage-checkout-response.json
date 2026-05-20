@@ -1,0 +1,6 @@
+{
+    "statusCode": 200,
+    "message": "success",
+    "creditUsageImmutableCheckoutUrl": "https://example.myr.id/pl/test?immutable=abc",
+    "paymentLinkUrl": "https://example.myr.id/pl/test"
+}

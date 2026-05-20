@@ -12,6 +12,7 @@ Laravel integration for the [Mayar Headless API](https://docs.mayar.id/api-refer
 - [Software license codes](#software-license-codes)
 - [SaaS Membership](#saas-membership)
 - [Credit Membership](#credit-membership)
+- [Credit Based Product](#credit-based-product)
 - [Invoices](#invoices)
 - [Payment Requests](#payment-requests)
 - [Installments](#installments)
@@ -80,7 +81,7 @@ Mayar::mode(MayarMode::Production);
 Mayar::client()->get(uri: 'customer', query: ['page' => 1]);
 ```
 
-For products, software license codes, SaaS membership, credit membership, invoices, payment requests, installments, discounts, customers, transactions, and webhooks, use the [Products](#products), [Software license codes](#software-license-codes), [SaaS Membership](#saas-membership), [Credit Membership](#credit-membership), [Invoices](#invoices), [Payment Requests](#payment-requests), [Installments](#installments), [Discounts](#discounts), [Customers](#customers), [Transactions](#transactions), and [Webhooks](#webhooks) modules below.
+For products, software license codes, SaaS membership, credit membership, credit based product, invoices, payment requests, installments, discounts, customers, transactions, and webhooks, use the [Products](#products), [Software license codes](#software-license-codes), [SaaS Membership](#saas-membership), [Credit Membership](#credit-membership), [Credit Based Product](#credit-based-product), [Invoices](#invoices), [Payment Requests](#payment-requests), [Installments](#installments), [Discounts](#discounts), [Customers](#customers), [Transactions](#transactions), and [Webhooks](#webhooks) modules below.
 
 ## Products
 
@@ -578,6 +579,198 @@ Content-Type: application/json
 ```
 
 **API reference:** [Regist New Membership Customer](https://docs.mayar.id/api-reference/usagebasedmembership/registnewmembershipcustomer)
+
+---
+
+## Credit Based Product
+
+Module namespace: `Bensondevs\Mayar\CreditBasedProduct\`
+
+Credit usage products share the same `{creditBase}` host as [Credit Membership](#credit-membership) but use **different request bodies and response shapes** (for example balance uses `productId` + `customerId` and `customerMainBalance`; register uses `/credit/credit-usage/customer/regist`; add/register success payloads may be nested under `data`). Use `CreditUsageHistory::paginate()` for Eloquent-style paginated history and `CreditBasedProduct` for the other operations.
+
+`{creditBase}`:
+
+- Sandbox: `https://api.mayar.club/credit/v1`
+- Production: `https://api.mayar.id/credit/v1`
+
+All requests require `Authorization: Bearer {MAYAR_API_KEY}`.
+
+### Get customer balance (credit usage)
+
+**Package**
+
+```php
+use Bensondevs\Mayar\CreditBasedProduct\CreditBasedProduct;
+
+$balance = CreditBasedProduct::customerBalance([
+    'productId' => 'YOUR-PRODUCT-ID',
+    'customerId' => 'YOUR-CUSTOMER-ID',
+]);
+
+echo $balance->customerBalance;
+echo $balance->customerMainBalance;
+echo $balance->customerBalanceAddon;
+```
+
+**Mayar equivalent**
+
+```http
+GET {creditBase}/credit/customer/balance?productId={productId}&customerId={customerId}
+Authorization: Bearer {MAYAR_API_KEY}
+```
+
+**API reference:** [Get Customer Balance](https://docs.mayar.id/api-reference/creditbasedproduct/customerbalance)
+
+---
+
+### Paginate customer credit history (credit usage)
+
+**Package**
+
+```php
+use Bensondevs\Mayar\CreditBasedProduct\CreditUsageHistory;
+
+$paginator = CreditUsageHistory::paginate(
+    identityId: 'YOUR-CUSTOMER-OR-MEMBER-ID',
+    page: 1,
+    perPage: 5,
+    filters: [
+        'productId' => 'YOUR-PRODUCT-ID',
+        // optional: membershipTierId, sortField, sortOrder, walletType, type, …
+    ],
+);
+```
+
+**Mayar equivalent**
+
+```http
+GET {creditBase}/credit/customer/paginate-credit-history/{identityId}?productId={productId}&page=1&limit=5
+Authorization: Bearer {MAYAR_API_KEY}
+```
+
+**API reference:** [Get Paginate Customer Credit History](https://docs.mayar.id/api-reference/creditbasedproduct/paginatecustomercredithistory)
+
+---
+
+### Spend customer credit (credit usage)
+
+**Package**
+
+```php
+use Bensondevs\Mayar\CreditBasedProduct\CreditBasedProduct;
+
+$success = CreditBasedProduct::spend([
+    'productId' => 'YOUR-PRODUCT-ID',
+    'customerId' => 'YOUR-CUSTOMER-ID',
+    'amount' => 10,
+]);
+```
+
+**Mayar equivalent**
+
+```http
+POST {creditBase}/credit/customer/spend
+Authorization: Bearer {MAYAR_API_KEY}
+Content-Type: application/json
+
+{"productId":"YOUR-PRODUCT-ID","customerId":"YOUR-CUSTOMER-ID","amount":10}
+```
+
+**API reference:** [Spend Customer Credit](https://docs.mayar.id/api-reference/creditbasedproduct/spendcustomercredit)
+
+---
+
+### Add customer credit (credit usage)
+
+**Package**
+
+```php
+use Bensondevs\Mayar\CreditBasedProduct\CreditBasedProduct;
+
+$result = CreditBasedProduct::addCredit([
+    'productId' => 'YOUR-PRODUCT-ID',
+    'customerId' => 'YOUR-CUSTOMER-ID',
+    'amount' => 100,
+]);
+
+echo $result->customerBalance;
+```
+
+**Mayar equivalent**
+
+```http
+POST {creditBase}/credit/customer/add-credit
+Authorization: Bearer {MAYAR_API_KEY}
+Content-Type: application/json
+```
+
+**API reference:** [Add Customer Credit](https://docs.mayar.id/api-reference/creditbasedproduct/addcustomercredit)
+
+---
+
+### Regist new customer (credit usage)
+
+**Package**
+
+```php
+use Bensondevs\Mayar\CreditBasedProduct\CreditBasedProduct;
+
+$result = CreditBasedProduct::registerCustomer([
+    'productId' => 'YOUR-PRODUCT-ID',
+    'trialCredit' => 300,
+    'customerInfo' => [
+        'name' => 'Customer name',
+        'email' => 'customer@example.com',
+        'mobile' => '081234567890',
+    ],
+]);
+
+echo $result->customerId;
+echo $result->paymentLinkId;
+```
+
+**Mayar equivalent**
+
+```http
+POST {creditBase}/credit/credit-usage/customer/regist
+Authorization: Bearer {MAYAR_API_KEY}
+Content-Type: application/json
+```
+
+**API reference:** [Regist New Customer](https://docs.mayar.id/api-reference/creditbasedproduct/registernewcustomer)
+
+---
+
+### Generate immutable checkout link
+
+**Package**
+
+```php
+use Bensondevs\Mayar\CreditBasedProduct\CreditBasedProduct;
+
+$result = CreditBasedProduct::generateImmutableCheckout([
+    'productId' => 'YOUR-PRODUCT-ID',
+    'creditAmount' => 1000,
+    'customerInfo' => [
+        'name' => 'Customer name',
+        'email' => 'customer@example.com',
+        'mobile' => '081234567890',
+    ],
+]);
+
+echo $result->creditUsageImmutableCheckoutUrl;
+echo $result->paymentLinkUrl;
+```
+
+**Mayar equivalent**
+
+```http
+POST {creditBase}/credit/generate/immutable/checkout
+Authorization: Bearer {MAYAR_API_KEY}
+Content-Type: application/json
+```
+
+**API reference:** [Generate Immutable Checkout Link](https://docs.mayar.id/api-reference/creditbasedproduct/generateimmutablecheckoutlink)
 
 ---
 
