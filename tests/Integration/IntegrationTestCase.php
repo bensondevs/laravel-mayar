@@ -17,7 +17,6 @@ abstract class IntegrationTestCase extends TestCase
 
         $app['config']->set('mayar.api_key', env('MAYAR_API_KEY'));
         $app['config']->set('mayar.mode', env('MAYAR_MODE', 'sandbox'));
-        $app['config']->set('mayar.test_product_id', env('MAYAR_TEST_PRODUCT_ID'));
     }
 
     private static function loadPackageDotenv(): void

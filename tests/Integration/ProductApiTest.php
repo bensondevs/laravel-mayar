@@ -38,7 +38,7 @@ it('finds a product by id when MAYAR_TEST_PRODUCT_ID is set', function (): void 
 
     $product = integrationTestProduct();
 
-    expect($product->getKey())->toBe((string) config('mayar.test_product_id'));
+    expect($product->getKey())->toBe((string) env('MAYAR_TEST_PRODUCT_ID'));
 });
 
 it('returns null for a non-existent product id', function (): void {
@@ -112,7 +112,7 @@ it('reopens a product when MAYAR_TEST_PRODUCT_ID is set', function (): void {
 
 function integrationTestProduct(): Product
 {
-    $productId = config('mayar.test_product_id');
+    $productId = env('MAYAR_TEST_PRODUCT_ID');
 
     if (blank($productId)) {
         test()->markTestSkipped('MAYAR_TEST_PRODUCT_ID is not set in .env');
