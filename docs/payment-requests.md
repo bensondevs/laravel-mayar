@@ -1,13 +1,13 @@
 # 💸 Payment Requests
 
-Module namespace: `Bensondevs\Mayar\PaymentRequests\`
+Module namespace: `Bensondevs\Mayar\Api\PaymentRequests\`
 
 `PaymentRequest` resources are API-backed and support create, edit, list, filter, detail, close, and re-open.
 
 ## Create Single Payment Request
 
 ```php
-use Bensondevs\Mayar\PaymentRequests\PaymentRequest;
+use Bensondevs\Mayar\Api\PaymentRequests\PaymentRequest;
 
 $paymentRequest = PaymentRequest::create([
     'name' => 'Customer name',
@@ -25,7 +25,7 @@ API reference: [Create Single Payment Request](https://docs.mayar.id/api-referen
 ## Edit Single Payment Request
 
 ```php
-use Bensondevs\Mayar\PaymentRequests\PaymentRequest;
+use Bensondevs\Mayar\Api\PaymentRequests\PaymentRequest;
 
 $paymentRequest = PaymentRequest::update([
     'id' => 'uuid',
@@ -44,7 +44,7 @@ API reference: [Edit Single Payment Request](https://docs.mayar.id/api-reference
 ## Get List Single Payment Request
 
 ```php
-use Bensondevs\Mayar\PaymentRequests\PaymentRequest;
+use Bensondevs\Mayar\Api\PaymentRequests\PaymentRequest;
 
 $paginator = PaymentRequest::paginate(page: 1, perPage: 10);
 ```
@@ -54,8 +54,8 @@ API reference: [Get List Single Payment Request](https://docs.mayar.id/api-refer
 ## Get Sort / Filter Single Payment Request
 
 ```php
-use Bensondevs\Mayar\PaymentRequests\Enums\PaymentRequestStatus;
-use Bensondevs\Mayar\PaymentRequests\PaymentRequest;
+use Bensondevs\Mayar\Api\PaymentRequests\Enums\PaymentRequestStatus;
+use Bensondevs\Mayar\Api\PaymentRequests\PaymentRequest;
 
 $paginator = PaymentRequest::status(PaymentRequestStatus::Paid)->paginate(page: 1, perPage: 10);
 ```
@@ -65,7 +65,7 @@ API reference: [Get Sort / Filter Single Payment Request](https://docs.mayar.id/
 ## Get Detail Single Payment Request
 
 ```php
-use Bensondevs\Mayar\PaymentRequests\PaymentRequest;
+use Bensondevs\Mayar\Api\PaymentRequests\PaymentRequest;
 
 $paymentRequest = PaymentRequest::find('uuid');
 $paymentRequest = PaymentRequest::findOrFail('uuid');

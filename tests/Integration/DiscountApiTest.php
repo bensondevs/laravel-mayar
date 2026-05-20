@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Bensondevs\Mayar\Discounts\Discount;
+use Bensondevs\Mayar\Api\Discounts\Discount;
 use Bensondevs\Mayar\Exceptions\MayarRequestException;
 
 it('creates a discount via save', function (): void {

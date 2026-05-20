@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Bensondevs\Mayar\Invoices\Invoice;
+use Bensondevs\Mayar\Api\Invoices\Invoice;
 use Bensondevs\Mayar\Tests\Feature\Invoices\InvoiceFixtures;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Http;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Bensondevs\Mayar\PaymentRequests\PaymentRequest;
+use Bensondevs\Mayar\Api\PaymentRequests\PaymentRequest;
 use Bensondevs\Mayar\Tests\Feature\PaymentRequests\PaymentRequestFixtures;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Http;

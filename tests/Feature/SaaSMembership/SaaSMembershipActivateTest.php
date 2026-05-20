@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Bensondevs\Mayar\SaaSMembership\SaaSMembership;
+use Bensondevs\Mayar\Api\SaaSMembership\SaaSMembership;
 use Bensondevs\Mayar\Tests\Feature\SaaSMembership\SaaSMembershipFixtures;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Validation\ValidationException;

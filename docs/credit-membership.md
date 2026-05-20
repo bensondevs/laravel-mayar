@@ -1,13 +1,13 @@
 # 💳 Credit Membership
 
-Module namespace: `Bensondevs\Mayar\CreditMembership\`
+Module namespace: `Bensondevs\Mayar\Api\CreditMembership\`
 
 Use this module for membership-credit flows: balance, history, spend, add-credit, and customer registration.
 
 ## Get Customer Balance
 
 ```php
-use Bensondevs\Mayar\CreditMembership\CreditMembership;
+use Bensondevs\Mayar\Api\CreditMembership\CreditMembership;
 
 $balance = CreditMembership::customerBalance([
     'productId' => 'YOUR-PRODUCT-ID',
@@ -21,7 +21,7 @@ API reference: [Get Customer Balance](https://docs.mayar.id/api-reference/usageb
 ## Paginate Customer Credit History
 
 ```php
-use Bensondevs\Mayar\CreditMembership\CreditHistory;
+use Bensondevs\Mayar\Api\CreditMembership\CreditHistory;
 
 $paginator = CreditHistory::paginate(
     identityId: 'PQVS4KGY',
@@ -36,7 +36,7 @@ API reference: [Get Paginate Customer Credit History](https://docs.mayar.id/api-
 ## Spend Customer Credit
 
 ```php
-use Bensondevs\Mayar\CreditMembership\CreditMembership;
+use Bensondevs\Mayar\Api\CreditMembership\CreditMembership;
 
 $success = CreditMembership::spend([
     'productId' => 'YOUR-PRODUCT-ID',
@@ -51,7 +51,7 @@ API reference: [Spend Customer Credit](https://docs.mayar.id/api-reference/usage
 ## Add Customer Credit
 
 ```php
-use Bensondevs\Mayar\CreditMembership\CreditMembership;
+use Bensondevs\Mayar\Api\CreditMembership\CreditMembership;
 
 $result = CreditMembership::addCredit([
     'productId' => 'YOUR-PRODUCT-ID',
@@ -66,7 +66,7 @@ API reference: [Add Customer Credit](https://docs.mayar.id/api-reference/usageba
 ## Register New Membership Customer
 
 ```php
-use Bensondevs\Mayar\CreditMembership\CreditMembership;
+use Bensondevs\Mayar\Api\CreditMembership\CreditMembership;
 
 $result = CreditMembership::registerCustomer([
     'productId' => 'YOUR-PRODUCT-ID',

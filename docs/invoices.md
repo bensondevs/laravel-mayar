@@ -1,13 +1,13 @@
 # 🧾 Invoices
 
-Module namespace: `Bensondevs\Mayar\Invoices\`
+Module namespace: `Bensondevs\Mayar\Api\Invoices\`
 
 `Invoice` resources are API-backed and support create, edit, list, filter, detail, close, and re-open.
 
 ## Create Invoice
 
 ```php
-use Bensondevs\Mayar\Invoices\Invoice;
+use Bensondevs\Mayar\Api\Invoices\Invoice;
 
 $invoice = Invoice::create([
     'name' => 'Customer name',
@@ -27,7 +27,7 @@ API reference: [Create Invoice](https://docs.mayar.id/api-reference/invoice/crea
 ## Edit Invoice
 
 ```php
-use Bensondevs\Mayar\Invoices\Invoice;
+use Bensondevs\Mayar\Api\Invoices\Invoice;
 
 $invoice = Invoice::update([
     'id' => 'uuid',
@@ -43,7 +43,7 @@ API reference: [Edit Invoice](https://docs.mayar.id/api-reference/invoice/edit)
 ## Get List Invoice
 
 ```php
-use Bensondevs\Mayar\Invoices\Invoice;
+use Bensondevs\Mayar\Api\Invoices\Invoice;
 
 $paginator = Invoice::paginate(page: 1, perPage: 10);
 ```
@@ -53,8 +53,8 @@ API reference: [Get List Invoice](https://docs.mayar.id/api-reference/invoice)
 ## Get Sort / Filter Invoice
 
 ```php
-use Bensondevs\Mayar\Invoices\Enums\InvoiceSort;
-use Bensondevs\Mayar\Invoices\Invoice;
+use Bensondevs\Mayar\Api\Invoices\Enums\InvoiceSort;
+use Bensondevs\Mayar\Api\Invoices\Invoice;
 
 $paginator = Invoice::sort(InvoiceSort::Closed)->paginate(page: 1, perPage: 10);
 ```
@@ -64,7 +64,7 @@ API reference: [Get Sort / Filter Invoice](https://docs.mayar.id/api-reference/i
 ## Get Detail Invoice
 
 ```php
-use Bensondevs\Mayar\Invoices\Invoice;
+use Bensondevs\Mayar\Api\Invoices\Invoice;
 
 $invoice = Invoice::find('uuid');
 $invoice = Invoice::findOrFail('uuid');

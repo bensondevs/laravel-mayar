@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Bensondevs\Mayar\Products\Enums\ProductType;
+use Bensondevs\Mayar\Api\Products\Enums\ProductType;
 
 it('resolves product types via find', function (): void {
     expect(ProductType::find('ebook'))->toBe(ProductType::Ebook)

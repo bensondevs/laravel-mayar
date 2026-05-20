@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use Bensondevs\Mayar\Products\Enums\ProductType;
-use Bensondevs\Mayar\Products\Product;
+use Bensondevs\Mayar\Api\Products\Enums\ProductType;
+use Bensondevs\Mayar\Api\Products\Product;
 use Bensondevs\Mayar\Tests\Feature\Products\ProductFixtures;
 use Illuminate\Support\Facades\Http;
 

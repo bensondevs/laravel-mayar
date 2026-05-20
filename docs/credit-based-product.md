@@ -1,13 +1,13 @@
 # ⚡ Credit Based Product
 
-Module namespace: `Bensondevs\Mayar\CreditBasedProduct\`
+Module namespace: `Bensondevs\Mayar\Api\CreditBasedProduct\`
 
 Credit-based products use the credit API with payloads that differ from credit membership.
 
 ## Get Customer Balance (Credit Usage)
 
 ```php
-use Bensondevs\Mayar\CreditBasedProduct\CreditBasedProduct;
+use Bensondevs\Mayar\Api\CreditBasedProduct\CreditBasedProduct;
 
 $balance = CreditBasedProduct::customerBalance([
     'productId' => 'YOUR-PRODUCT-ID',
@@ -20,7 +20,7 @@ API reference: [Get Customer Balance](https://docs.mayar.id/api-reference/credit
 ## Paginate Customer Credit History (Credit Usage)
 
 ```php
-use Bensondevs\Mayar\CreditBasedProduct\CreditUsageHistory;
+use Bensondevs\Mayar\Api\CreditBasedProduct\CreditUsageHistory;
 
 $paginator = CreditUsageHistory::paginate(
     identityId: 'YOUR-CUSTOMER-OR-MEMBER-ID',
@@ -35,7 +35,7 @@ API reference: [Get Paginate Customer Credit History](https://docs.mayar.id/api-
 ## Spend Customer Credit (Credit Usage)
 
 ```php
-use Bensondevs\Mayar\CreditBasedProduct\CreditBasedProduct;
+use Bensondevs\Mayar\Api\CreditBasedProduct\CreditBasedProduct;
 
 $success = CreditBasedProduct::spend([
     'productId' => 'YOUR-PRODUCT-ID',
@@ -49,7 +49,7 @@ API reference: [Spend Customer Credit](https://docs.mayar.id/api-reference/credi
 ## Add Customer Credit (Credit Usage)
 
 ```php
-use Bensondevs\Mayar\CreditBasedProduct\CreditBasedProduct;
+use Bensondevs\Mayar\Api\CreditBasedProduct\CreditBasedProduct;
 
 $result = CreditBasedProduct::addCredit([
     'productId' => 'YOUR-PRODUCT-ID',
@@ -63,7 +63,7 @@ API reference: [Add Customer Credit](https://docs.mayar.id/api-reference/creditb
 ## Regist New Customer (Credit Usage)
 
 ```php
-use Bensondevs\Mayar\CreditBasedProduct\CreditBasedProduct;
+use Bensondevs\Mayar\Api\CreditBasedProduct\CreditBasedProduct;
 
 $result = CreditBasedProduct::registerCustomer([
     'productId' => 'YOUR-PRODUCT-ID',
@@ -81,7 +81,7 @@ API reference: [Regist New Customer](https://docs.mayar.id/api-reference/creditb
 ## Generate Immutable Checkout Link
 
 ```php
-use Bensondevs\Mayar\CreditBasedProduct\CreditBasedProduct;
+use Bensondevs\Mayar\Api\CreditBasedProduct\CreditBasedProduct;
 
 $result = CreditBasedProduct::generateImmutableCheckout([
     'productId' => 'YOUR-PRODUCT-ID',

@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use Bensondevs\Mayar\Tests\Feature\Webhooks\WebhookFixtures;
-use Bensondevs\Mayar\Webhooks\WebhookHistory;
+use Bensondevs\Mayar\Api\Webhooks\WebhookHistory;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Http;
 

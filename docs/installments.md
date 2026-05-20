@@ -1,13 +1,13 @@
 # 🧩 Installments
 
-Module namespace: `Bensondevs\Mayar\Installments\`
+Module namespace: `Bensondevs\Mayar\Api\Installments\`
 
 Installments currently support create and detail.
 
 ## Create Installment
 
 ```php
-use Bensondevs\Mayar\Installments\Installment;
+use Bensondevs\Mayar\Api\Installments\Installment;
 
 $installment = Installment::create([
     'name' => 'Customer name',
@@ -28,7 +28,7 @@ API reference: [POST Create Installment](https://docs.mayar.id/api-reference/ins
 ## Get Installment Detail
 
 ```php
-use Bensondevs\Mayar\Installments\Installment;
+use Bensondevs\Mayar\Api\Installments\Installment;
 
 $installment = Installment::find('uuid');
 $installment = Installment::findOrFail('uuid');

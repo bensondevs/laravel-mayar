@@ -1,13 +1,13 @@
 # ⭐ Reviews
 
-Module namespace: `Bensondevs\Mayar\Reviews\`
+Module namespace: `Bensondevs\Mayar\Api\Reviews\`
 
 Reviews are read-only and support paginated listing.
 
 ## Get All Reviews
 
 ```php
-use Bensondevs\Mayar\Reviews\Review;
+use Bensondevs\Mayar\Api\Reviews\Review;
 
 $paginator = Review::paginate(page: 1, perPage: 10);
 

@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use Bensondevs\Mayar\Tests\Feature\Transactions\TransactionFixtures;
-use Bensondevs\Mayar\Transactions\UnpaidTransaction;
+use Bensondevs\Mayar\Api\Transactions\UnpaidTransaction;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Http;
 

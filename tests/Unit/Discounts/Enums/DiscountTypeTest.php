@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Bensondevs\Mayar\Discounts\Enums\DiscountType;
+use Bensondevs\Mayar\Api\Discounts\Enums\DiscountType;
 
 it('resolves discount type from string', function (): void {
     expect(DiscountType::find('monetary'))->toBe(DiscountType::Monetary)

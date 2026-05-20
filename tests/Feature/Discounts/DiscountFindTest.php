@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Bensondevs\Mayar\Discounts\Discount;
+use Bensondevs\Mayar\Api\Discounts\Discount;
 use Bensondevs\Mayar\Exceptions\MayarNotFoundException;
 use Bensondevs\Mayar\Tests\Feature\Discounts\DiscountFixtures;
 use BensonDevs\SuperchargedEnums\Common\Http\HttpStatusCode;

@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use Bensondevs\Mayar\PaymentRequests\Enums\PaymentRequestStatus;
-use Bensondevs\Mayar\PaymentRequests\PaymentRequest;
+use Bensondevs\Mayar\Api\PaymentRequests\Enums\PaymentRequestStatus;
+use Bensondevs\Mayar\Api\PaymentRequests\PaymentRequest;
 use Bensondevs\Mayar\Tests\Feature\PaymentRequests\PaymentRequestFixtures;
 use Illuminate\Support\Facades\Http;
 

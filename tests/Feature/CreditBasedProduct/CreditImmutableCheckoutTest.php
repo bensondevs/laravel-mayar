@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use Bensondevs\Mayar\CreditBasedProduct\CreditBasedProduct;
-use Bensondevs\Mayar\CreditBasedProduct\ImmutableCheckoutLinkResult;
+use Bensondevs\Mayar\Api\CreditBasedProduct\CreditBasedProduct;
+use Bensondevs\Mayar\Api\CreditBasedProduct\ImmutableCheckoutLinkResult;
 use Bensondevs\Mayar\Tests\Feature\CreditBasedProduct\CreditBasedProductFixtures;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Validation\ValidationException;

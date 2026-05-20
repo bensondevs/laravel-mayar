@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Bensondevs\Mayar\Customers\Customer;
+use Bensondevs\Mayar\Api\Customers\Customer;
 use Bensondevs\Mayar\Tests\Feature\Customers\CustomerFixtures;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Http;

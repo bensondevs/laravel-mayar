@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use Bensondevs\Mayar\Invoices\Enums\InvoiceSort;
-use Bensondevs\Mayar\Invoices\Invoice;
+use Bensondevs\Mayar\Api\Invoices\Enums\InvoiceSort;
+use Bensondevs\Mayar\Api\Invoices\Invoice;
 use Bensondevs\Mayar\Tests\Feature\Invoices\InvoiceFixtures;
 use Illuminate\Support\Facades\Http;
 

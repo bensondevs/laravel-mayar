@@ -1,13 +1,13 @@
 # 👤 Customers
 
-Module namespace: `Bensondevs\Mayar\Customers\`
+Module namespace: `Bensondevs\Mayar\Api\Customers\`
 
 Customers support listing, email-based detail, create, email update, and portal magic-link creation.
 
 ## Get Customer Page
 
 ```php
-use Bensondevs\Mayar\Customers\Customer;
+use Bensondevs\Mayar\Api\Customers\Customer;
 
 $paginator = Customer::paginate(page: 1, perPage: 10);
 ```
@@ -17,7 +17,7 @@ API reference: [Get Customer](https://docs.mayar.id/api-reference/customer/getde
 ## Search Customer By Email
 
 ```php
-use Bensondevs\Mayar\Customers\Customer;
+use Bensondevs\Mayar\Api\Customers\Customer;
 
 $customer = Customer::findByEmail('customer@example.com');
 $customer = Customer::findByEmailOrFail('customer@example.com');
@@ -28,7 +28,7 @@ API reference: [Search Customer By Email](https://docs.mayar.id/api-reference/cu
 ## Create Customer
 
 ```php
-use Bensondevs\Mayar\Customers\Customer;
+use Bensondevs\Mayar\Api\Customers\Customer;
 
 $customer = Customer::create([
     'name' => 'Customer name',
@@ -42,7 +42,7 @@ API reference: [Create Customer](https://docs.mayar.id/api-reference/customer/cr
 ## Update Customer Email
 
 ```php
-use Bensondevs\Mayar\Customers\Customer;
+use Bensondevs\Mayar\Api\Customers\Customer;
 
 $success = Customer::updateEmail([
     'fromEmail' => 'old@example.com',
@@ -55,7 +55,7 @@ API reference: [Update Customer Email](https://docs.mayar.id/api-reference/custo
 ## Create Magic Link (Customer Portal)
 
 ```php
-use Bensondevs\Mayar\Customers\Customer;
+use Bensondevs\Mayar\Api\Customers\Customer;
 
 $result = Customer::sendPortalMagicLink('customer@example.com');
 ```

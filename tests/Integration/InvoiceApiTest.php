@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use Bensondevs\Mayar\Exceptions\MayarRequestException;
-use Bensondevs\Mayar\Invoices\Invoice;
+use Bensondevs\Mayar\Api\Invoices\Invoice;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 it('paginates invoices via Invoice::paginate', function (): void {

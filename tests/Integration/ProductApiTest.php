@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Bensondevs\Mayar\Products\Product;
+use Bensondevs\Mayar\Api\Products\Product;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 it('paginates products via Product::paginate', function (): void {

@@ -65,7 +65,7 @@ Use a key issued from the portal that matches your mode.
 ```php
 use Bensondevs\Mayar\Mayar;
 use Bensondevs\Mayar\Enums\MayarMode;
-use Bensondevs\Mayar\Products\Product;
+use Bensondevs\Mayar\Api\Products\Product;
 
 // Raw HTTP access (advanced)
 $response = Mayar::client()->get(uri: 'customer', query: [
@@ -81,7 +81,7 @@ $products = Product::search(keyword: 'course')->paginate(page: 1, perPage: 10);
 ```
 
 ```php
-use Bensondevs\Mayar\Invoices\Invoice;
+use Bensondevs\Mayar\Api\Invoices\Invoice;
 
 $invoice = Invoice::create([
     'name' => 'Customer name',

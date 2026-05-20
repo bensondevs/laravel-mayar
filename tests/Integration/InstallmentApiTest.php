@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use Bensondevs\Mayar\Exceptions\MayarRequestException;
-use Bensondevs\Mayar\Installments\Installment;
+use Bensondevs\Mayar\Api\Installments\Installment;
 
 it('creates an installment via save', function (): void {
     skipUnlessMayarConfigured();

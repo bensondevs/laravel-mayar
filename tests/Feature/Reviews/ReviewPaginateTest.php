@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Bensondevs\Mayar\Reviews\Review;
+use Bensondevs\Mayar\Api\Reviews\Review;
 use Bensondevs\Mayar\Tests\Feature\Reviews\ReviewFixtures;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Http;

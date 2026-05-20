@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use Bensondevs\Mayar\Exceptions\MayarRequestException;
-use Bensondevs\Mayar\PaymentRequests\PaymentRequest;
+use Bensondevs\Mayar\Api\PaymentRequests\PaymentRequest;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 it('paginates payment requests via PaymentRequest::paginate', function (): void {

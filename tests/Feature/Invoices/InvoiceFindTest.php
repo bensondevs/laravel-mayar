@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use Bensondevs\Mayar\Exceptions\MayarNotFoundException;
-use Bensondevs\Mayar\Invoices\Invoice;
+use Bensondevs\Mayar\Api\Invoices\Invoice;
 use Bensondevs\Mayar\Tests\Feature\Invoices\InvoiceFixtures;
 use BensonDevs\SuperchargedEnums\Common\Http\HttpStatusCode;
 use Illuminate\Support\Facades\Http;

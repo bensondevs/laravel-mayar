@@ -1,6 +1,6 @@
 # 🛍️ Products
 
-Module namespace: `Bensondevs\Mayar\Products\`
+Module namespace: `Bensondevs\Mayar\Api\Products\`
 
 `Product` uses an Eloquent-like style (`find`, `findOrFail`, `paginate`, query chaining) but is API-backed, not a database model.
 
@@ -9,7 +9,7 @@ Module namespace: `Bensondevs\Mayar\Products\`
 ### Get Product Page
 
 ```php
-use Bensondevs\Mayar\Products\Product;
+use Bensondevs\Mayar\Api\Products\Product;
 
 $paginator = Product::paginate(page: 1, perPage: 10);
 ```
@@ -19,8 +19,8 @@ API reference: [Get Product Page](https://docs.mayar.id/api-reference/product/pr
 ### Get Product Page with Type Filter
 
 ```php
-use Bensondevs\Mayar\Products\Enums\ProductType;
-use Bensondevs\Mayar\Products\Product;
+use Bensondevs\Mayar\Api\Products\Enums\ProductType;
+use Bensondevs\Mayar\Api\Products\Product;
 
 $paginator = Product::type(ProductType::Ebook)->paginate(page: 1, perPage: 10);
 ```
@@ -30,7 +30,7 @@ API reference: [Get Product Page with Type Filter](https://docs.mayar.id/api-ref
 ### Search Product
 
 ```php
-use Bensondevs\Mayar\Products\Product;
+use Bensondevs\Mayar\Api\Products\Product;
 
 $paginator = Product::search(keyword: 'course')->paginate(page: 1, perPage: 10);
 ```
@@ -40,8 +40,8 @@ API reference: [Search Product](https://docs.mayar.id/api-reference/product/sear
 ### Type Filter + Search
 
 ```php
-use Bensondevs\Mayar\Products\Enums\ProductType;
-use Bensondevs\Mayar\Products\Product;
+use Bensondevs\Mayar\Api\Products\Enums\ProductType;
+use Bensondevs\Mayar\Api\Products\Product;
 
 $paginator = Product::type(ProductType::Ebook)
     ->search(keyword: 'journal')
@@ -53,7 +53,7 @@ API references: [Type Filter](https://docs.mayar.id/api-reference/product/produc
 ### Get Detail Product
 
 ```php
-use Bensondevs\Mayar\Products\Product;
+use Bensondevs\Mayar\Api\Products\Product;
 
 $product = Product::find('uuid');
 $product = Product::findOrFail('uuid');

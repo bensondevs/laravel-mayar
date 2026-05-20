@@ -1,13 +1,13 @@
 # 🔑 Software License Codes
 
-Module namespace: `Bensondevs\Mayar\SoftwareLicenseCodes\`
+Module namespace: `Bensondevs\Mayar\Api\SoftwareLicenseCodes\`
 
 Use this module to verify software license codes through the Mayar software API (`/software/v1`).
 
 ## Verify License
 
 ```php
-use Bensondevs\Mayar\SoftwareLicenseCodes\SoftwareLicenseCode;
+use Bensondevs\Mayar\Api\SoftwareLicenseCodes\SoftwareLicenseCode;
 
 $result = SoftwareLicenseCode::verify(
     licenseCode: 'YOUR-LICENSE-CODE',

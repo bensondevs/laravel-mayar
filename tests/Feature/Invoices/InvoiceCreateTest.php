@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use Bensondevs\Mayar\Invoices\Invoice;
-use Bensondevs\Mayar\Invoices\InvoiceItem;
+use Bensondevs\Mayar\Api\Invoices\Invoice;
+use Bensondevs\Mayar\Api\Invoices\InvoiceItem;
 use Bensondevs\Mayar\Tests\Feature\Invoices\InvoiceFixtures;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Validation\ValidationException;

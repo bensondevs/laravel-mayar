@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use Bensondevs\Mayar\Discounts\CouponValidationResult;
-use Bensondevs\Mayar\Discounts\Discount;
+use Bensondevs\Mayar\Api\Discounts\CouponValidationResult;
+use Bensondevs\Mayar\Api\Discounts\Discount;
 use Bensondevs\Mayar\Tests\Feature\Discounts\DiscountFixtures;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Validation\ValidationException;

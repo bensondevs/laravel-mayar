@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use Bensondevs\Mayar\CreditMembership\AddCustomerCreditResult;
-use Bensondevs\Mayar\CreditMembership\CreditMembership;
+use Bensondevs\Mayar\Api\CreditMembership\AddCustomerCreditResult;
+use Bensondevs\Mayar\Api\CreditMembership\CreditMembership;
 use Bensondevs\Mayar\Tests\Feature\CreditMembership\CreditMembershipFixtures;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Validation\ValidationException;

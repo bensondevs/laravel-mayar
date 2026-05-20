@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use Bensondevs\Mayar\Exceptions\MayarNotFoundException;
-use Bensondevs\Mayar\PaymentRequests\PaymentRequest;
+use Bensondevs\Mayar\Api\PaymentRequests\PaymentRequest;
 use Bensondevs\Mayar\Tests\Feature\PaymentRequests\PaymentRequestFixtures;
 use BensonDevs\SuperchargedEnums\Common\Http\HttpStatusCode;
 use Illuminate\Support\Facades\Http;

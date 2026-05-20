@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use Bensondevs\Mayar\Tests\Feature\Transactions\TransactionFixtures;
-use Bensondevs\Mayar\Transactions\Transaction;
+use Bensondevs\Mayar\Api\Transactions\Transaction;
 use Illuminate\Support\Facades\Http;
 
 it('returns daily transaction statistics as an array', function (): void {

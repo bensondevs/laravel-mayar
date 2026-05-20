@@ -1,13 +1,13 @@
 # 🏷️ Discounts
 
-Module namespace: `Bensondevs\Mayar\Discounts\`
+Module namespace: `Bensondevs\Mayar\Api\Discounts\`
 
 Discounts support create, validate, and detail.
 
 ## Create Discount with Coupon
 
 ```php
-use Bensondevs\Mayar\Discounts\Discount;
+use Bensondevs\Mayar\Api\Discounts\Discount;
 
 $discount = Discount::create([
     'name' => 'Diskon Murmer',
@@ -32,7 +32,7 @@ API reference: [Create Discount with Coupon](https://docs.mayar.id/api-reference
 ## Validate Coupon
 
 ```php
-use Bensondevs\Mayar\Discounts\Discount;
+use Bensondevs\Mayar\Api\Discounts\Discount;
 
 $result = Discount::validate([
     'paymentLinkId' => 'uuid',
@@ -48,7 +48,7 @@ API reference: [Validate Coupon](https://docs.mayar.id/api-reference/discount/va
 ## Get Coupon Detail
 
 ```php
-use Bensondevs\Mayar\Discounts\Discount;
+use Bensondevs\Mayar\Api\Discounts\Discount;
 
 $discount = Discount::find('uuid');
 $discount = Discount::findOrFail('uuid');

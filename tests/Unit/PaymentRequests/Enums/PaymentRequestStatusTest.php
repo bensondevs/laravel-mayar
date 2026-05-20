@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Bensondevs\Mayar\PaymentRequests\Enums\PaymentRequestStatus;
+use Bensondevs\Mayar\Api\PaymentRequests\Enums\PaymentRequestStatus;
 
 it('resolves payment request status from string', function (): void {
     expect(PaymentRequestStatus::find('active'))->toBe(PaymentRequestStatus::Active)

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Bensondevs\Mayar\CreditBasedProduct\CreditUsageHistory;
+use Bensondevs\Mayar\Api\CreditBasedProduct\CreditUsageHistory;
 use Bensondevs\Mayar\Tests\Feature\CreditBasedProduct\CreditBasedProductFixtures;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Http;

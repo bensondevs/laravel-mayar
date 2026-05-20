@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use Bensondevs\Mayar\CreditBasedProduct\CreditBasedProduct;
-use Bensondevs\Mayar\CreditBasedProduct\CreditUsageRegisterCustomerResult;
+use Bensondevs\Mayar\Api\CreditBasedProduct\CreditBasedProduct;
+use Bensondevs\Mayar\Api\CreditBasedProduct\CreditUsageRegisterCustomerResult;
 use Bensondevs\Mayar\Tests\Feature\CreditBasedProduct\CreditBasedProductFixtures;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Validation\ValidationException;

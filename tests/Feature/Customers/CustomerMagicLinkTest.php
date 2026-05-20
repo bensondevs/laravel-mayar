@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use Bensondevs\Mayar\Customers\Customer;
-use Bensondevs\Mayar\Customers\PortalMagicLinkResult;
+use Bensondevs\Mayar\Api\Customers\Customer;
+use Bensondevs\Mayar\Api\Customers\PortalMagicLinkResult;
 use Bensondevs\Mayar\Tests\Feature\Customers\CustomerFixtures;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Validation\ValidationException;

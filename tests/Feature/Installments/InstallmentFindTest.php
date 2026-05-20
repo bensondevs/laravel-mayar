@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use Bensondevs\Mayar\Exceptions\MayarNotFoundException;
-use Bensondevs\Mayar\Installments\Installment;
+use Bensondevs\Mayar\Api\Installments\Installment;
 use Bensondevs\Mayar\Tests\Feature\Installments\InstallmentFixtures;
 use BensonDevs\SuperchargedEnums\Common\Http\HttpStatusCode;
 use Illuminate\Support\Facades\Http;

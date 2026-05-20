@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use Bensondevs\Mayar\Tests\Feature\Webhooks\WebhookFixtures;
-use Bensondevs\Mayar\Webhooks\Webhook;
+use Bensondevs\Mayar\Api\Webhooks\Webhook;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Validation\ValidationException;
 

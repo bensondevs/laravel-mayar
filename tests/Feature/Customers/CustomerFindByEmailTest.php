@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Bensondevs\Mayar\Customers\Customer;
+use Bensondevs\Mayar\Api\Customers\Customer;
 use Bensondevs\Mayar\Exceptions\MayarNotFoundException;
 use Bensondevs\Mayar\Tests\Feature\Customers\CustomerFixtures;
 use BensonDevs\SuperchargedEnums\Common\Http\HttpStatusCode;

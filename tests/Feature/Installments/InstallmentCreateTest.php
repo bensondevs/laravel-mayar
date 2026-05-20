@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use Bensondevs\Mayar\Installments\Installment;
-use Bensondevs\Mayar\Installments\InstallmentTerms;
+use Bensondevs\Mayar\Api\Installments\Installment;
+use Bensondevs\Mayar\Api\Installments\InstallmentTerms;
 use Bensondevs\Mayar\Tests\Feature\Installments\InstallmentFixtures;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Validation\ValidationException;

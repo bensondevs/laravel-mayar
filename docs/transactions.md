@@ -1,13 +1,13 @@
 # 📊 Transactions
 
-Module namespace: `Bensondevs\Mayar\Transactions\`
+Module namespace: `Bensondevs\Mayar\Api\Transactions\`
 
 Transactions module covers balance, unpaid transactions, daily statistics, and dynamic QR code.
 
 ## Get Account Balance
 
 ```php
-use Bensondevs\Mayar\Transactions\Transaction;
+use Bensondevs\Mayar\Api\Transactions\Transaction;
 
 $balance = Transaction::accountBalance();
 ```
@@ -17,7 +17,7 @@ API reference: [Get Account Balance](https://docs.mayar.id/api-reference/transac
 ## Get Unpaid Transactions
 
 ```php
-use Bensondevs\Mayar\Transactions\UnpaidTransaction;
+use Bensondevs\Mayar\Api\Transactions\UnpaidTransaction;
 
 $paginator = UnpaidTransaction::paginate(page: 1, perPage: 10);
 ```
@@ -27,7 +27,7 @@ API reference: [Get Unpaid Transaction](https://docs.mayar.id/api-reference/tran
 ## Get Daily Transaction Statistics
 
 ```php
-use Bensondevs\Mayar\Transactions\Transaction;
+use Bensondevs\Mayar\Api\Transactions\Transaction;
 
 $daily = Transaction::daily();
 ```
@@ -37,7 +37,7 @@ API reference: [Transaction Daily](https://docs.mayar.id/api-reference/transacti
 ## Create Dynamic QR Code
 
 ```php
-use Bensondevs\Mayar\Transactions\Transaction;
+use Bensondevs\Mayar\Api\Transactions\Transaction;
 
 $result = Transaction::createDynamicQrCode(amount: 10000);
 ```

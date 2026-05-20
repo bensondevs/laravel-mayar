@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use Bensondevs\Mayar\SoftwareLicenseCodes\LicenseVerificationResult;
-use Bensondevs\Mayar\SoftwareLicenseCodes\SoftwareLicenseCode;
+use Bensondevs\Mayar\Api\SoftwareLicenseCodes\LicenseVerificationResult;
+use Bensondevs\Mayar\Api\SoftwareLicenseCodes\SoftwareLicenseCode;
 use Bensondevs\Mayar\Tests\Feature\SoftwareLicenseCodes\SoftwareLicenseCodeFixtures;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Validation\ValidationException;
