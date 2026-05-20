@@ -1,0 +1,34 @@
+{
+    "statusCode": 200,
+    "messages": "Success",
+    "data": {
+        "id": "ba82c2dd-06c1-4b6c-bc59-a9c00801c842",
+        "createdAt": 1755631209521,
+        "dueDate": 11,
+        "interest": 0,
+        "interestType": "FLAT",
+        "period": "MONTHLY",
+        "tenure": 3,
+        "invoices": [
+            {
+                "id": "9fe1b9c4-b5d5-4d45-bf1a-5c4849631725",
+                "amount": 500000,
+                "updatedAt": 1755631210118,
+                "category": null,
+                "status": "unpaid",
+                "index": 1,
+                "link": "mkcn4u72ki",
+                "description": "Cicil Produk Kelas Online 3 Bulan",
+                "interestAmount": 0,
+                "remainingAmount": 1000000,
+                "customerId": "62d1a396-07d8-4d93-a14c-9ec801f3af20",
+                "customer": {
+                    "id": "62d1a396-07d8-4d93-a14c-9ec801f3af20",
+                    "email": "azumiikecee@gmail.com",
+                    "mobile": "089961367511",
+                    "name": "Azumii"
+                }
+            }
+        ]
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "statusCode": 200,
+    "messages": "success",
+    "data": {
+        "id": "e890d24a-cfc0-4915-83d2-3166b9ffba9e",
+        "link": "ohsjrd3wko",
+        "name": "Azumii",
+        "category": null,
+        "limit": null,
+        "type": "payment_request",
+        "userId": "348e083d-315a-4e5c-96b1-5a2a98c48413",
+        "event": null,
+        "order": null,
+        "qty": null,
+        "amount": 100000,
+        "status": "unpaid",
+        "description": "Ubah ReqPayment",
+        "coverImageId": null,
+        "multipleImageId": null,
+        "coverImage": null,
+        "multipleImage": null
+    }
+}

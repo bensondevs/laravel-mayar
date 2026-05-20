@@ -1,0 +1,31 @@
+{
+    "statusCode": 200,
+    "messages": "success",
+    "hasMore": true,
+    "pageCount": 3,
+    "pageSize": 10,
+    "page": 1,
+    "data": [
+        {
+            "id": "07e1d023-3bc4-46cd-9a30-2102cd0770f4",
+            "amount": 100000,
+            "category": null,
+            "createdAt": 1753681216049,
+            "description": "<p>Test payment request</p>\n",
+            "link": "xnxivrq8ple",
+            "type": "payment_request",
+            "status": "unpaid",
+            "name": "Penagihan",
+            "limit": null,
+            "redirectUrl": null,
+            "installmentId": null,
+            "event": null,
+            "order": null,
+            "coverImageId": null,
+            "multipleImageId": null,
+            "coverImage": null,
+            "multipleImage": null
+        }
+    ],
+    "total": 1
+}

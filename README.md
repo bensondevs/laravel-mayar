@@ -10,6 +10,8 @@ Laravel integration for the [Mayar Headless API](https://docs.mayar.id/api-refer
 - [Usage](#usage)
 - [Products](#products)
 - [Invoices](#invoices)
+- [Payment Requests](#payment-requests)
+- [Installments](#installments)
 - [Develop and test](#develop-and-test)
 - [Roadmap](#roadmap)
 
@@ -71,7 +73,7 @@ Mayar::mode(MayarMode::Production);
 Mayar::client()->get(uri: 'customer', query: ['page' => 1]);
 ```
 
-For products and invoices, use the [Products](#products) and [Invoices](#invoices) modules below.
+For products, invoices, payment requests, and installments, use the [Products](#products), [Invoices](#invoices), [Payment Requests](#payment-requests), and [Installments](#installments) modules below.
 
 ## Products
 
@@ -458,6 +460,259 @@ Authorization: Bearer {MAYAR_API_KEY}
 
 ---
 
+## Payment Requests
+
+Module namespace: `Bensondevs\Mayar\PaymentRequests\`
+
+API-backed `PaymentRequest` resources use an Eloquent-*like* calling style (`new`, attribute access, `save`, `find`, `paginate`) but are not database models. Create and edit payloads are validated before any HTTP request; edit requires all fields per the Mayar API. `PaymentRequest::findOrFail()` throws `Bensondevs\Mayar\Exceptions\MayarNotFoundException` when the API returns no resource.
+
+`{base}` is your configured API root (sandbox or production). All requests require `Authorization: Bearer {MAYAR_API_KEY}`.
+
+### Create Single Payment Request
+
+**Package**
+
+```php
+use Bensondevs\Mayar\PaymentRequests\PaymentRequest;
+
+$paymentRequest = new PaymentRequest;
+$paymentRequest->name = 'Customer name';
+$paymentRequest->email = 'customer@example.com';
+$paymentRequest->amount = 170000;
+$paymentRequest->mobile = '081234567890';
+$paymentRequest->redirectUrl = 'https://example.com/thanks';
+$paymentRequest->description = 'Payment description';
+$paymentRequest->expiredAt = '2025-12-29T09:41:09.401Z';
+$paymentRequest->save();
+```
+
+**Mayar equivalent**
+
+```http
+POST {base}/payment/create
+Authorization: Bearer {MAYAR_API_KEY}
+```
+
+**API reference:** [Create Single Payment Request](https://docs.mayar.id/api-reference/reqpayment/create)
+
+---
+
+### Edit Single Payment Request
+
+**Package**
+
+```php
+use Bensondevs\Mayar\PaymentRequests\PaymentRequest;
+
+// Instance (all required fields must be on the model)
+$paymentRequest = PaymentRequest::findOrFail('uuid');
+$paymentRequest->description = 'Updated description';
+$paymentRequest->save();
+
+// Static (validated before request; all fields required)
+$paymentRequest = PaymentRequest::update([
+    'id' => 'uuid',
+    'name' => 'Customer name',
+    'email' => 'customer@example.com',
+    'amount' => 100000,
+    'mobile' => '081234567890',
+    'redirectUrl' => 'https://example.com/thanks',
+    'description' => 'Updated description',
+    'expiredAt' => '2025-12-29T09:41:09.401Z',
+]);
+```
+
+**Mayar equivalent**
+
+```http
+POST {base}/payment/edit
+Authorization: Bearer {MAYAR_API_KEY}
+```
+
+**API reference:** [Edit Single Payment Request](https://docs.mayar.id/api-reference/reqpayment/edit)
+
+---
+
+### Get List Single Payment Request
+
+**Package**
+
+```php
+use Bensondevs\Mayar\PaymentRequests\PaymentRequest;
+
+$paginator = PaymentRequest::paginate(page: 1, perPage: 10);
+```
+
+**Mayar equivalent**
+
+```http
+GET {base}/payment?page=1&pageSize=10
+Authorization: Bearer {MAYAR_API_KEY}
+```
+
+**API reference:** [Get List Single Payment Request](https://docs.mayar.id/api-reference/reqpayment)
+
+---
+
+### Get Sort / Filter Single Payment Request
+
+**Package**
+
+```php
+use Bensondevs\Mayar\PaymentRequests\Enums\PaymentRequestStatus;
+use Bensondevs\Mayar\PaymentRequests\PaymentRequest;
+
+$paginator = PaymentRequest::status(PaymentRequestStatus::Paid)->paginate(page: 1, perPage: 10);
+
+// or string
+$paginator = PaymentRequest::status('paid')->paginate(page: 1, perPage: 10);
+```
+
+`PaymentRequestStatus` cases: `active`, `paid`, `closed`.
+
+**Mayar equivalent**
+
+```http
+GET {base}/payment?status=paid&page=1&pageSize=10
+Authorization: Bearer {MAYAR_API_KEY}
+```
+
+**API reference:** [Get Sort / Filter Single Payment Request](https://docs.mayar.id/api-reference/reqpayment/filter)
+
+---
+
+### Get Detail Single Payment Request
+
+**Package**
+
+```php
+use Bensondevs\Mayar\PaymentRequests\PaymentRequest;
+
+$paymentRequest = PaymentRequest::find('uuid');
+$paymentRequest = PaymentRequest::findOrFail('uuid');
+```
+
+**Mayar equivalent**
+
+```http
+GET {base}/payment/{id}
+Authorization: Bearer {MAYAR_API_KEY}
+```
+
+**API reference:** [Get Detail Single Payment Request](https://docs.mayar.id/api-reference/reqpayment/detail)
+
+---
+
+### Close Single Payment Request
+
+**Package**
+
+```php
+$paymentRequest = PaymentRequest::findOrFail('uuid');
+
+if ($paymentRequest->close()) {
+    // Mayar messages === "success"
+}
+```
+
+**Mayar equivalent**
+
+```http
+GET {base}/payment/close/{id}
+Authorization: Bearer {MAYAR_API_KEY}
+```
+
+**API reference:** [Close Single Payment Request](https://docs.mayar.id/api-reference/reqpayment/close)
+
+---
+
+### Re-open Single Payment Request
+
+**Package**
+
+```php
+$paymentRequest = PaymentRequest::findOrFail('uuid');
+
+if ($paymentRequest->open()) {
+    // Mayar messages === "success"
+}
+```
+
+**Mayar equivalent**
+
+```http
+GET {base}/payment/open/{id}
+Authorization: Bearer {MAYAR_API_KEY}
+```
+
+**API reference:** [Re-open Single Payment Request](https://docs.mayar.id/api-reference/reqpayment/reopen)
+
+---
+
+## Installments
+
+Module namespace: `Bensondevs\Mayar\Installments\`
+
+API-backed `Installment` resources support **create** and **detail** only (no list, edit, or close endpoints in the Mayar API). Use an Eloquent-*like* style: `new`, attribute access, `setInstallment()`, and `save()` for create; `find()` / `findOrFail()` for detail. Create payloads are validated before any HTTP request.
+
+Installment terms (`description`, `interest`, `tenure`, `dueDate`) are set via `setInstallment()` using `InstallmentTerms` DTOs or arrays. Calling `save()` on an existing record throws `LogicException` because the API has no update endpoint.
+
+`{base}` is your configured API root. All requests require `Authorization: Bearer {MAYAR_API_KEY}`.
+
+### Create Installment
+
+**Package**
+
+```php
+use Bensondevs\Mayar\Installments\Installment;
+
+$installment = new Installment;
+$installment->name = 'Customer name';
+$installment->email = 'customer@example.com';
+$installment->mobile = '081234567890';
+$installment->amount = 1500000;
+$installment->setInstallment([
+    'description' => 'Cicil Produk 3 Bulan',
+    'interest' => 0,
+    'tenure' => 3,
+    'dueDate' => 11,
+]);
+$installment->save();
+```
+
+**Mayar equivalent**
+
+```http
+POST {base}/installment/create
+Authorization: Bearer {MAYAR_API_KEY}
+```
+
+**API reference:** [POST Create Installment](https://docs.mayar.id/api-reference/installment/create)
+
+---
+
+### Get Installment Detail
+
+**Package**
+
+```php
+use Bensondevs\Mayar\Installments\Installment;
+
+$installment = Installment::find('uuid');
+$installment = Installment::findOrFail('uuid');
+```
+
+**Mayar equivalent**
+
+```http
+GET {base}/installment/{id}
+Authorization: Bearer {MAYAR_API_KEY}
+```
+
+**API reference:** [Get Installment Detail](https://docs.mayar.id/api-reference/installment/detail)
+
+---
+
 ## Develop and test
 
 ```bash
@@ -470,7 +725,7 @@ Tests use `Http::fake()` and do not call the live Mayar API.
 ## Roadmap
 
 - Customer module (API-backed resources)
-- Payment request and additional Mayar resources
+- Additional Mayar resources
 
 ## License
 
