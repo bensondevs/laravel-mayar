@@ -14,6 +14,7 @@ Laravel integration for the [Mayar Headless API](https://docs.mayar.id/api-refer
 - [Installments](#installments)
 - [Discounts](#discounts)
 - [Customers](#customers)
+- [Transactions](#transactions)
 - [Develop and test](#develop-and-test)
 - [Roadmap](#roadmap)
 
@@ -75,7 +76,7 @@ Mayar::mode(MayarMode::Production);
 Mayar::client()->get(uri: 'customer', query: ['page' => 1]);
 ```
 
-For products, invoices, payment requests, installments, discounts, and customers, use the [Products](#products), [Invoices](#invoices), [Payment Requests](#payment-requests), [Installments](#installments), [Discounts](#discounts), and [Customers](#customers) modules below.
+For products, invoices, payment requests, installments, discounts, customers, and transactions, use the [Products](#products), [Invoices](#invoices), [Payment Requests](#payment-requests), [Installments](#installments), [Discounts](#discounts), [Customers](#customers), and [Transactions](#transactions) modules below.
 
 ## Products
 
@@ -1007,6 +1008,109 @@ Authorization: Bearer {MAYAR_API_KEY}
 ```
 
 **API reference:** [Create Magic Link](https://docs.mayar.id/api-reference/customer/createmagiclink)
+
+---
+
+## Transactions
+
+Module namespace: `Bensondevs\Mayar\Transactions\`
+
+The transactions module covers account balance, unpaid transaction listing, daily statistics, and dynamic QR code creation. `Transaction::accountBalance()` and `Transaction::daily()` return only the Mayar `data` object as a plain PHP array (not the full API envelope). Unpaid transactions use `UnpaidTransaction::paginate()` and return `Illuminate\Pagination\LengthAwarePaginator` of resource instances.
+
+`{base}` is your configured API root. All requests require `Authorization: Bearer {MAYAR_API_KEY}`.
+
+### Get Account Balance
+
+**Package**
+
+```php
+use Bensondevs\Mayar\Transactions\Transaction;
+
+$balance = Transaction::accountBalance();
+
+// ['balanceActive' => 0, 'balancePending' => 0, 'balance' => 0]
+```
+
+**Mayar equivalent**
+
+```http
+GET {base}/balance
+Authorization: Bearer {MAYAR_API_KEY}
+```
+
+**API reference:** [Get Account Balance](https://docs.mayar.id/api-reference/transaction/accountbalance)
+
+---
+
+### Get Unpaid Transactions
+
+**Package**
+
+```php
+use Bensondevs\Mayar\Transactions\UnpaidTransaction;
+
+$paginator = UnpaidTransaction::paginate(page: 1, perPage: 10);
+
+foreach ($paginator as $transaction) {
+    echo $transaction->paymentUrl;
+}
+```
+
+**Mayar equivalent**
+
+```http
+GET {base}/transactions/unpaid?page=1&pageSize=10
+Authorization: Bearer {MAYAR_API_KEY}
+```
+
+**API reference:** [Get Unpaid Transaction](https://docs.mayar.id/api-reference/transaction/unpaidtransaction)
+
+---
+
+### Get Daily Transaction Statistics
+
+**Package**
+
+```php
+use Bensondevs\Mayar\Transactions\Transaction;
+
+$daily = Transaction::daily();
+
+// ['date' => '2026-05-08', 'tpvCount' => 125000, 'trxCount' => 10]
+```
+
+**Mayar equivalent**
+
+```http
+GET {base}/transactions/daily
+Authorization: Bearer {MAYAR_API_KEY}
+```
+
+**API reference:** [Transaction Daily](https://docs.mayar.id/api-reference/transaction/dailytransaction)
+
+---
+
+### Create Dynamic QR Code
+
+**Package**
+
+```php
+use Bensondevs\Mayar\Transactions\Transaction;
+
+$result = Transaction::createDynamicQrCode(amount: 10000);
+
+echo $result->url;
+echo $result->amount;
+```
+
+**Mayar equivalent**
+
+```http
+POST {base}/qrcode/create
+Authorization: Bearer {MAYAR_API_KEY}
+```
+
+**API reference:** [Create Dynamic QRCode](https://docs.mayar.id/api-reference/transaction/createdynamicqrcode)
 
 ---
 

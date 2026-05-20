@@ -37,4 +37,15 @@ final class MayarPayload
     {
         return HttpStatusCode::NotFound->is(self::statusCode($payload));
     }
+
+    /**
+     * @param  array<string, mixed>  $payload
+     * @return array<string, mixed>
+     */
+    public static function data(array $payload): array
+    {
+        $data = $payload['data'] ?? [];
+
+        return is_array($data) ? $data : [];
+    }
 }

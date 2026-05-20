@@ -1,0 +1,9 @@
+{
+    "statusCode": 200,
+    "messages": "success",
+    "data": {
+        "balanceActive": 0,
+        "balancePending": 0,
+        "balance": 0
+    }
+}

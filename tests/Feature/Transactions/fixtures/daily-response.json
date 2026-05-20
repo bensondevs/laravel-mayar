@@ -1,0 +1,8 @@
+{
+    "statusCode": 200,
+    "data": {
+        "date": "2026-05-08",
+        "tpvCount": 125000,
+        "trxCount": 10
+    }
+}

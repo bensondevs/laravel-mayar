@@ -1,0 +1,43 @@
+{
+    "statusCode": 200,
+    "messages": "success",
+    "hasMore": true,
+    "pageCount": 28,
+    "pageSize": 10,
+    "page": 1,
+    "total": 278,
+    "data": [
+        {
+            "id": "040d5adb-1496-45de-8435-5cab16526a8c",
+            "createdAt": 1755627439078,
+            "type": "payment_request",
+            "amount": 100000,
+            "status": "active",
+            "urlParamTrackingData": null,
+            "paymentLinkId": "e890d24a-cfc0-4915-83d2-3166b9ffba9e",
+            "customerId": "ae57ce73-89a2-46a7-84d7-93a616ef220e",
+            "customeField": null,
+            "customer": {
+                "id": "ae57ce73-89a2-46a7-84d7-93a616ef220e",
+                "email": "azumiikecee@gmail.com",
+                "name": "Azumii",
+                "mobile": "08996136751"
+            },
+            "paymentLink": {
+                "id": "e890d24a-cfc0-4915-83d2-3166b9ffba9e",
+                "category": null,
+                "createdAt": 1755627438790,
+                "description": "Ubah ReqPayment",
+                "link": "ohsjrd3wko",
+                "name": "Azumii",
+                "redirectUrl": "https://web.mayar.id.",
+                "userId": "348e083d-315a-4e5c-96b1-5a2a98c48413",
+                "coverImageId": null,
+                "multipleImageId": null,
+                "coverImage": null,
+                "multipleImage": null
+            },
+            "paymentUrl": "https://andiak.myr.id/plt/040d5adb-1496-45de-8435-5cab16526a8c"
+        }
+    ]
+}
