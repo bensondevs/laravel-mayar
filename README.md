@@ -20,6 +20,7 @@ Laravel integration for the [Mayar Headless API](https://docs.mayar.id/api-refer
 - [Customers](#customers)
 - [Transactions](#transactions)
 - [Webhooks](#webhooks)
+- [Reviews](#reviews)
 - [Develop and test](#develop-and-test)
 - [Roadmap](#roadmap)
 
@@ -81,7 +82,7 @@ Mayar::mode(MayarMode::Production);
 Mayar::client()->get(uri: 'customer', query: ['page' => 1]);
 ```
 
-For products, software license codes, SaaS membership, credit membership, credit based product, invoices, payment requests, installments, discounts, customers, transactions, and webhooks, use the [Products](#products), [Software license codes](#software-license-codes), [SaaS Membership](#saas-membership), [Credit Membership](#credit-membership), [Credit Based Product](#credit-based-product), [Invoices](#invoices), [Payment Requests](#payment-requests), [Installments](#installments), [Discounts](#discounts), [Customers](#customers), [Transactions](#transactions), and [Webhooks](#webhooks) modules below.
+For products, software license codes, SaaS membership, credit membership, credit based product, invoices, payment requests, installments, discounts, customers, transactions, webhooks, and reviews, use the [Products](#products), [Software license codes](#software-license-codes), [SaaS Membership](#saas-membership), [Credit Membership](#credit-membership), [Credit Based Product](#credit-based-product), [Invoices](#invoices), [Payment Requests](#payment-requests), [Installments](#installments), [Discounts](#discounts), [Customers](#customers), [Transactions](#transactions), [Webhooks](#webhooks), and [Reviews](#reviews) modules below.
 
 ## Products
 
@@ -1724,6 +1725,40 @@ Content-Type: application/json
 ```
 
 **API reference:** [Retry History](https://docs.mayar.id/api-reference/webhook/retryhistory)
+
+---
+
+## Reviews
+
+Module namespace: `Bensondevs\Mayar\Reviews\`
+
+API-backed `Review` resources support list pagination via `Review::paginate(page:, perPage:)`. Reviews are read-only in this package and return `Illuminate\Pagination\LengthAwarePaginator` of `Review` instances with API field names preserved (for example `paymentLinkId`, `createdAt`).
+
+`{base}` is your configured API root. All requests require `Authorization: Bearer {MAYAR_API_KEY}`.
+
+### Get All Reviews
+
+**Package**
+
+```php
+use Bensondevs\Mayar\Reviews\Review;
+
+$paginator = Review::paginate(page: 1, perPage: 10);
+
+foreach ($paginator as $review) {
+    echo $review->message;
+    echo $review->rating;
+}
+```
+
+**Mayar equivalent**
+
+```http
+GET {base}/reviews?page=1&pageSize=10
+Authorization: Bearer {MAYAR_API_KEY}
+```
+
+**API reference:** [Get All Reviews](https://docs.mayar.id/api-reference/reviews/getallreviews)
 
 ---
 

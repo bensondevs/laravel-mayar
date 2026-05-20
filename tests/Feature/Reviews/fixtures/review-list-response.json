@@ -1,0 +1,35 @@
+{
+  "statusCode": 200,
+  "messages": "success",
+  "hasMore": false,
+  "pageCount": 1,
+  "pageSize": 10,
+  "page": 1,
+  "total": 1,
+  "data": [
+    {
+      "id": "11f4d767-4d88-41ff-8777-06564d906fe7",
+      "createdAt": 1778223034383,
+      "customerId": "22eb6224-c20a-4bc2-9b99-13b21e7048c6",
+      "message": "Bagus sekali, takde minusnyo",
+      "paymentLinkId": "e2b3f5d5-0c62-47ba-8a01-6c1c209e0f77",
+      "rating": 5,
+      "status": "ACTIVE",
+      "updatedAt": 1778225558788,
+      "userId": "348e083d-315a-4e5c-96b1-5a2a98c48413",
+      "multipleImage": [],
+      "content": [],
+      "customer": {
+        "id": "22eb6224-c20a-4bc2-9b99-13b21e7048c6",
+        "name": "Test Mayar"
+      },
+      "paymentLink": {
+        "id": "e2b3f5d5-0c62-47ba-8a01-6c1c209e0f77",
+        "name": "Kelas Pemrograman Web Dasar",
+        "type": "course",
+        "link": "website",
+        "subType": null
+      }
+    }
+  ]
+}
