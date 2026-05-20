@@ -9,6 +9,7 @@ Laravel integration for the [Mayar Headless API](https://docs.mayar.id/api-refer
 - [Configuration](#configuration)
 - [Usage](#usage)
 - [Products](#products)
+- [Invoices](#invoices)
 - [Develop and test](#develop-and-test)
 - [Roadmap](#roadmap)
 
@@ -70,7 +71,7 @@ Mayar::mode(MayarMode::Production);
 Mayar::client()->get(uri: 'customer', query: ['page' => 1]);
 ```
 
-For products, use the [Products module](#products) below.
+For products and invoices, use the [Products](#products) and [Invoices](#invoices) modules below.
 
 ## Products
 
@@ -261,6 +262,202 @@ Authorization: Bearer {MAYAR_API_KEY}
 
 ---
 
+## Invoices
+
+Module namespace: `Bensondevs\Mayar\Invoices\`
+
+API-backed `Invoice` resources use an Eloquent-*like* calling style (`new`, attribute access, `save`, `find`, `paginate`) but are not database models. Create and edit payloads are validated with Laravel's validator before any HTTP request. `Invoice::findOrFail()` throws `Bensondevs\Mayar\Exceptions\MayarNotFoundException` when the API returns no resource.
+
+Line items are managed with `addItem()` / `setItems()` using `InvoiceItem` DTOs or arrays (`quantity`, `rate`, `description`).
+
+`{base}` is your configured API root (sandbox or production). All requests require `Authorization: Bearer {MAYAR_API_KEY}`.
+
+### Create Invoice
+
+**Package**
+
+```php
+use Bensondevs\Mayar\Invoices\Invoice;
+
+$invoice = new Invoice;
+$invoice->name = 'Customer name';
+$invoice->email = 'customer@example.com';
+$invoice->mobile = '081234567890';
+$invoice->redirectUrl = 'https://example.com/thanks';
+$invoice->description = 'Order notes';
+$invoice->expiredAt = '2026-04-19T16:43:23.000Z';
+$invoice->extraData = [
+    'noCustomer' => 'ref-123',
+    'idProd' => 'prod-456',
+];
+$invoice->addItem([
+    'quantity' => 1,
+    'rate' => 10000,
+    'description' => 'Item description',
+]);
+$invoice->save();
+```
+
+**Mayar equivalent**
+
+```http
+POST {base}/invoice/create
+Authorization: Bearer {MAYAR_API_KEY}
+```
+
+**API reference:** [Create Invoice](https://docs.mayar.id/api-reference/invoice/create)
+
+---
+
+### Edit Invoice
+
+**Package**
+
+```php
+use Bensondevs\Mayar\Invoices\Invoice;
+
+// Instance
+$invoice = Invoice::findOrFail('uuid');
+$invoice->description = 'Updated description';
+$invoice->save();
+
+// Static (validated before request)
+$invoice = Invoice::update([
+    'id' => 'uuid',
+    'description' => 'Updated description',
+    'items' => [
+        ['quantity' => 2, 'rate' => 55000, 'description' => 'Updated item'],
+    ],
+]);
+```
+
+**Mayar equivalent**
+
+```http
+POST {base}/invoice/edit
+Authorization: Bearer {MAYAR_API_KEY}
+```
+
+**API reference:** [Edit Invoice](https://docs.mayar.id/api-reference/invoice/edit)
+
+---
+
+### Get List Invoice
+
+**Package**
+
+```php
+use Bensondevs\Mayar\Invoices\Invoice;
+
+$paginator = Invoice::paginate(page: 1, perPage: 10);
+```
+
+**Mayar equivalent**
+
+```http
+GET {base}/invoice?page=1&pageSize=10
+Authorization: Bearer {MAYAR_API_KEY}
+```
+
+**API reference:** [Get List Invoice](https://docs.mayar.id/api-reference/invoice)
+
+---
+
+### Get Sort / Filter Invoice
+
+**Package**
+
+```php
+use Bensondevs\Mayar\Invoices\Enums\InvoiceSort;
+use Bensondevs\Mayar\Invoices\Invoice;
+
+$paginator = Invoice::sort(InvoiceSort::Closed)->paginate(page: 1, perPage: 10);
+
+// or string
+$paginator = Invoice::sort('closed')->paginate(page: 1, perPage: 10);
+```
+
+`InvoiceSort` cases: `active`, `paid`, `closed` (Mayar filter examples use `sort=closed`).
+
+**Mayar equivalent**
+
+```http
+GET {base}/invoice?sort=closed&page=1&pageSize=10
+Authorization: Bearer {MAYAR_API_KEY}
+```
+
+**API reference:** [Get Sort / Filter Invoice](https://docs.mayar.id/api-reference/invoice/filter)
+
+---
+
+### Get Detail Invoice
+
+**Package**
+
+```php
+use Bensondevs\Mayar\Invoices\Invoice;
+
+$invoice = Invoice::find('uuid');
+$invoice = Invoice::findOrFail('uuid');
+```
+
+**Mayar equivalent**
+
+```http
+GET {base}/invoice/{id}
+Authorization: Bearer {MAYAR_API_KEY}
+```
+
+**API reference:** [Get Detail / Invoice Status](https://docs.mayar.id/api-reference/invoice/detail)
+
+---
+
+### Close Invoice
+
+**Package**
+
+```php
+$invoice = Invoice::findOrFail('uuid');
+
+if ($invoice->close()) {
+    // Mayar messages === "success"
+}
+```
+
+**Mayar equivalent**
+
+```http
+GET {base}/invoice/close/{id}
+Authorization: Bearer {MAYAR_API_KEY}
+```
+
+**API reference:** [Close Invoice](https://docs.mayar.id/api-reference/invoice/close)
+
+---
+
+### Re-open Invoice
+
+**Package**
+
+```php
+$invoice = Invoice::findOrFail('uuid');
+
+if ($invoice->open()) {
+    // Mayar messages === "success"
+}
+```
+
+**Mayar equivalent**
+
+```http
+GET {base}/invoice/open/{id}
+Authorization: Bearer {MAYAR_API_KEY}
+```
+
+**API reference:** [Re-open Invoice](https://docs.mayar.id/api-reference/invoice/reopen)
+
+---
+
 ## Develop and test
 
 ```bash
@@ -273,7 +470,7 @@ Tests use `Http::fake()` and do not call the live Mayar API.
 ## Roadmap
 
 - Customer module (API-backed resources)
-- Invoice, payment request, and additional Mayar resources
+- Payment request and additional Mayar resources
 
 ## License
 

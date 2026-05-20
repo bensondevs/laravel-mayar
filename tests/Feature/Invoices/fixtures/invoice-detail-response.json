@@ -1,0 +1,26 @@
+{
+    "statusCode": 200,
+    "messages": "success",
+    "data": {
+        "id": "f774034d-d9cc-43a0-97d8-a2520c127f03",
+        "amount": 110000,
+        "status": "unpaid",
+        "link": "ibzfrf4880",
+        "expiredAt": 1764582069401,
+        "transactions": [
+            {
+                "id": "23fa41c5-c6ed-45d4-8302-5fac4a165dfa"
+            }
+        ],
+        "customerId": "ae57ce73-89a2-46a7-84d7-93a616ef220e",
+        "customer": {
+            "id": "ae57ce73-89a2-46a7-84d7-93a616ef220e",
+            "email": "azumiikecee@gmail.com",
+            "mobile": "08996136751",
+            "name": "Azumii"
+        },
+        "transactionId": "23fa41c5-c6ed-45d4-8302-5fac4a165dfa",
+        "paymentUrl": "https://andiak.myr.id/invoices/ibzfrf4880",
+        "paymentLinkId": "f774034d-d9cc-43a0-97d8-a2520c127f03"
+    }
+}

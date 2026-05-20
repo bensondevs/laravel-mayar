@@ -1,0 +1,36 @@
+{
+    "statusCode": 200,
+    "messages": "success",
+    "hasMore": true,
+    "pageCount": 2,
+    "pageSize": 10,
+    "page": 1,
+    "data": [
+        {
+            "id": "01918da0-704b-45d8-bf14-afbd738eb682",
+            "amount": 2000,
+            "category": null,
+            "createdAt": 1691046324713,
+            "description": "",
+            "link": "75py7f7vwwr",
+            "type": "invoice",
+            "status": "paid",
+            "name": "INVOICE",
+            "redirectUrl": null,
+            "customerId": "6a38cf26-6bab-42c8-92be-72f3a9fd4c33",
+            "transactions": [
+                {
+                    "id": "d442dcbd-6dbb-4e26-aec5-8c4b5f5e13a2",
+                    "status": "created"
+                }
+            ],
+            "customer": {
+                "id": "6a38cf26-6bab-42c8-92be-72f3a9fd4c33",
+                "email": "mayartesting05@gmail.com",
+                "mobile": "081320547877",
+                "name": "Harus Buat auto testing"
+            }
+        }
+    ],
+    "total": 17
+}

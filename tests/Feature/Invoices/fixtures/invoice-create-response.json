@@ -1,0 +1,14 @@
+{
+    "statusCode": 200,
+    "messages": "success",
+    "data": {
+        "id": "df65d192-8396-4f9a-b4e5-8244648c07c5",
+        "transactionId": "ca87fd13-8742-4d48-af33-7de1a417bc34",
+        "link": "https://korban-motivator.mayar.shop/invoices/ycfyxbj2h3",
+        "expiredAt": 1776617003000,
+        "extraData": {
+            "noCustomer": "827hiueqy271hj",
+            "idProd": "contoh aja"
+        }
+    }
+}

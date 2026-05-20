@@ -69,6 +69,19 @@ class MayarClient
     }
 
     /**
+     * @param  array<string, mixed>  $data
+     * @return array<string, mixed>
+     *
+     * @throws MayarRequestException
+     */
+    public function postUrl(string $url, array $data = []): array
+    {
+        $response = $this->send(method: 'post', url: $url, query: [], body: $data);
+
+        return $this->unwrapResponse($response);
+    }
+
+    /**
      * @param  array<string, mixed>  $query
      * @param  array<string, mixed>  $body
      * @return array<string, mixed>

@@ -17,6 +17,16 @@ abstract class MayarResource
     protected array $attributes = [];
 
     /**
+     * @param  array<string, mixed>  $attributes
+     */
+    public function __construct(array $attributes = [])
+    {
+        if ($attributes !== []) {
+            $this->fillFromMayar($attributes);
+        }
+    }
+
+    /**
      * @param  array<string, mixed>  $payload
      */
     public static function fromMayar(array $payload): static
