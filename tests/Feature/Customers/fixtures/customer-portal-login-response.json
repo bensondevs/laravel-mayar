@@ -1,0 +1,7 @@
+{
+    "statusCode": 200,
+    "messages": "success",
+    "data": {
+        "url": "Sudah kami kirim ke email anda"
+    }
+}

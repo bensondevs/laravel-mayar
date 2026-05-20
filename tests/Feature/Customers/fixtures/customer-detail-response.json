@@ -1,0 +1,33 @@
+{
+    "statusCode": 200,
+    "messages": "success",
+    "data": {
+        "id": "22eb6224-c20a-4bc2-9b99-13b21e7048c6",
+        "createdAt": 1730782544663,
+        "email": "testingmayar@gmail.com",
+        "mobile": "08112280103422",
+        "name": "Test Mayar",
+        "status": "active",
+        "updatedAt": 1730782544663,
+        "userId": "348e083d-315a-4e5c-96b1-5a2a98c48413",
+        "user": {
+            "id": "348e083d-315a-4e5c-96b1-5a2a98c48413",
+            "name": "GlazerOut",
+            "urlHook": "https://example.com/webhook",
+            "email": "owner@example.com",
+            "paymeLink": "testingmayar",
+            "isSelfDomain": false,
+            "accountId": "be305ea4-5fe1-4bb9-a5c8-6bc1d0bfd279",
+            "account": {
+                "id": "be305ea4-5fe1-4bb9-a5c8-6bc1d0bfd279",
+                "name": "Mayar Team",
+                "imageId": "efeecb5d-acac-45f8-8249-396f8a5b6a95",
+                "logo": {
+                    "id": "efeecb5d-acac-45f8-8249-396f8a5b6a95",
+                    "fileType": "jpeg",
+                    "url": "https://media.mayar.id/images/efeecb5d-acac-45f8-8249-396f8a5b6a95.jpeg"
+                }
+            }
+        }
+    }
+}

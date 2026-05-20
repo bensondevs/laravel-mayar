@@ -13,6 +13,7 @@ Laravel integration for the [Mayar Headless API](https://docs.mayar.id/api-refer
 - [Payment Requests](#payment-requests)
 - [Installments](#installments)
 - [Discounts](#discounts)
+- [Customers](#customers)
 - [Develop and test](#develop-and-test)
 - [Roadmap](#roadmap)
 
@@ -74,7 +75,7 @@ Mayar::mode(MayarMode::Production);
 Mayar::client()->get(uri: 'customer', query: ['page' => 1]);
 ```
 
-For products, invoices, payment requests, installments, and discounts, use the [Products](#products), [Invoices](#invoices), [Payment Requests](#payment-requests), [Installments](#installments), and [Discounts](#discounts) modules below.
+For products, invoices, payment requests, installments, discounts, and customers, use the [Products](#products), [Invoices](#invoices), [Payment Requests](#payment-requests), [Installments](#installments), [Discounts](#discounts), and [Customers](#customers) modules below.
 
 ## Products
 
@@ -873,6 +874,142 @@ Authorization: Bearer {MAYAR_API_KEY}
 
 ---
 
+## Customers
+
+Module namespace: `Bensondevs\Mayar\Customers\`
+
+API-backed `Customer` resources use an Eloquent-*like* calling style (`paginate`, `findByEmail`, `save`, `create`) but are not database models. There is no find-by-ID endpoint in the Mayar API; use `findByEmail()` / `findByEmailOrFail()` instead. List pagination uses `totalCustomer` from the API response. Create payloads are validated before any HTTP request. Email updates and portal magic links use dedicated static methods (`updateEmail()`, `sendPortalMagicLink()`).
+
+`{base}` is your configured API root. All requests require `Authorization: Bearer {MAYAR_API_KEY}`.
+
+### Get Customer Page
+
+**Package**
+
+```php
+use Bensondevs\Mayar\Customers\Customer;
+
+$paginator = Customer::paginate(page: 1, perPage: 10);
+
+foreach ($paginator as $customer) {
+    echo $customer->name;
+}
+```
+
+**Mayar equivalent**
+
+```http
+GET {base}/customer?page=1&pageSize=10
+Authorization: Bearer {MAYAR_API_KEY}
+```
+
+**API reference:** [Get Customer](https://docs.mayar.id/api-reference/customer/getdetail)
+
+---
+
+### Search Customer By Email
+
+**Package**
+
+```php
+use Bensondevs\Mayar\Customers\Customer;
+
+$customer = Customer::findByEmail('customer@example.com');
+$customer = Customer::findByEmailOrFail('customer@example.com');
+```
+
+**Mayar equivalent**
+
+```http
+GET {base}/customer/detail?email=customer@example.com
+Authorization: Bearer {MAYAR_API_KEY}
+```
+
+**API reference:** [Search Customer By Email](https://docs.mayar.id/api-reference/customer/searchcustomerbyemail)
+
+---
+
+### Create Customer
+
+**Package**
+
+```php
+use Bensondevs\Mayar\Customers\Customer;
+
+$customer = new Customer;
+$customer->name = 'Customer name';
+$customer->email = 'customer@example.com';
+$customer->mobile = '081234567890';
+$customer->save();
+
+// Static shorthand (equivalent to new Customer($attrs)->save())
+$customer = Customer::create([
+    'name' => 'Customer name',
+    'email' => 'customer@example.com',
+    'mobile' => '081234567890',
+]);
+```
+
+The create response returns `customerId`; the package maps it to `id` on the resource.
+
+**Mayar equivalent**
+
+```http
+POST {base}/customer/create
+Authorization: Bearer {MAYAR_API_KEY}
+```
+
+**API reference:** [Create Customer](https://docs.mayar.id/api-reference/customer/create)
+
+---
+
+### Update Customer Email
+
+**Package**
+
+```php
+use Bensondevs\Mayar\Customers\Customer;
+
+$success = Customer::updateEmail([
+    'fromEmail' => 'old@example.com',
+    'toEmail' => 'new@example.com',
+]);
+```
+
+**Mayar equivalent**
+
+```http
+POST {base}/customer/update
+Authorization: Bearer {MAYAR_API_KEY}
+```
+
+**API reference:** [Update Customer Email](https://docs.mayar.id/api-reference/customer/update)
+
+---
+
+### Create Magic Link (Customer Portal)
+
+**Package**
+
+```php
+use Bensondevs\Mayar\Customers\Customer;
+
+$result = Customer::sendPortalMagicLink('customer@example.com');
+
+echo $result->url;
+```
+
+**Mayar equivalent**
+
+```http
+POST {base}/customer/login/portal
+Authorization: Bearer {MAYAR_API_KEY}
+```
+
+**API reference:** [Create Magic Link](https://docs.mayar.id/api-reference/customer/createmagiclink)
+
+---
+
 ## Develop and test
 
 ```bash
@@ -884,7 +1021,6 @@ Tests use `Http::fake()` and do not call the live Mayar API.
 
 ## Roadmap
 
-- Customer module (API-backed resources)
 - Additional Mayar resources
 
 ## License

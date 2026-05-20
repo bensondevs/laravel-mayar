@@ -1,0 +1,21 @@
+{
+    "statusCode": 200,
+    "messages": "success",
+    "hasMore": true,
+    "pageCount": 98,
+    "pageSize": 10,
+    "page": 1,
+    "totalCustomer": 1176,
+    "data": [
+        {
+            "id": "0072cf8e-a8f1-4ce9-9dcd-3683f085ebf1",
+            "createdAt": 1735787039376,
+            "email": "ghasyiyahps@gmail.com",
+            "mobile": "6281296450946",
+            "name": "Kirana",
+            "status": "active",
+            "updatedAt": 1735787039377,
+            "userId": "4dba4996-7d74-483e-99fe-b52c60368cb5"
+        }
+    ]
+}

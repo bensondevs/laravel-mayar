@@ -1,0 +1,11 @@
+{
+    "statusCode": 200,
+    "messages": "success",
+    "data": {
+        "name": "Raihan Nur Azmii",
+        "email": "mraihanna19@gmail.com",
+        "mobile": "089912345678",
+        "userId": "348e083d-315a-4e5c-96b1-5a2a98c48413",
+        "customerId": "b0356d4c-516a-403e-abfe-b144da7068b4"
+    }
+}
