@@ -10,6 +10,7 @@ Laravel integration for the [Mayar Headless API](https://docs.mayar.id/api-refer
 - [Usage](#usage)
 - [Products](#products)
 - [Software license codes](#software-license-codes)
+- [SaaS Membership](#saas-membership)
 - [Invoices](#invoices)
 - [Payment Requests](#payment-requests)
 - [Installments](#installments)
@@ -78,7 +79,7 @@ Mayar::mode(MayarMode::Production);
 Mayar::client()->get(uri: 'customer', query: ['page' => 1]);
 ```
 
-For products, software license codes, invoices, payment requests, installments, discounts, customers, transactions, and webhooks, use the [Products](#products), [Software license codes](#software-license-codes), [Invoices](#invoices), [Payment Requests](#payment-requests), [Installments](#installments), [Discounts](#discounts), [Customers](#customers), [Transactions](#transactions), and [Webhooks](#webhooks) modules below.
+For products, software license codes, SaaS membership, invoices, payment requests, installments, discounts, customers, transactions, and webhooks, use the [Products](#products), [Software license codes](#software-license-codes), [SaaS Membership](#saas-membership), [Invoices](#invoices), [Payment Requests](#payment-requests), [Installments](#installments), [Discounts](#discounts), [Customers](#customers), [Transactions](#transactions), and [Webhooks](#webhooks) modules below.
 
 ## Products
 
@@ -269,43 +270,6 @@ Authorization: Bearer {MAYAR_API_KEY}
 
 ---
 
-### Verify license code
-
-**Package**
-
-```php
-use Bensondevs\Mayar\Products\Product;
-
-$product = Product::findOrFail('uuid');
-
-$result = $product->verifyLicenseCode('YOUR-LICENSE-CODE');
-
-if ($result->isLicenseActive) {
-    echo $result->licenseCode['customerEmail'];
-}
-```
-
-Uses the product’s `id` as `productId`. See [Software license codes](#software-license-codes) for `SoftwareLicenseCode::verify()` when you already have a product ID.
-
-**Mayar equivalent**
-
-```http
-POST {softwareBase}/license/verify
-Authorization: Bearer {MAYAR_API_KEY}
-Content-Type: application/json
-
-{"licenseCode":"YOUR-LICENSE-CODE","productId":"uuid"}
-```
-
-Software API base (not headless `{base}`):
-
-- Sandbox: `https://api.mayar.club/software/v1`
-- Production: `https://api.mayar.id/software/v1`
-
-**API reference:** [Verify License](https://docs.mayar.id/api-reference/licensecode/verifylicense)
-
----
-
 ## Software license codes
 
 Module namespace: `Bensondevs\Mayar\SoftwareLicenseCodes\`
@@ -347,6 +311,104 @@ Content-Type: application/json
 ```
 
 **API reference:** [Verify License](https://docs.mayar.id/api-reference/licensecode/verifylicense)
+
+---
+
+## SaaS Membership
+
+Module namespace: `Bensondevs\Mayar\SaaSMembership\`
+
+Manage SaaS membership licenses via the Mayar **SaaS** API (`/saas/v1`). `SaaSMembership::verify()` returns `SaaSLicenseVerificationResult`, while `SaaSMembership::activate()` and `SaaSMembership::deactivate()` return `bool` based on the API envelope.
+
+`{saasBase}` is the SaaS API root:
+
+- Sandbox: `https://api.mayar.club/saas/v1`
+- Production: `https://api.mayar.id/saas/v1`
+
+All requests require `Authorization: Bearer {MAYAR_API_KEY}`.
+
+### Verify license SaaS subscription
+
+**Package**
+
+```php
+use Bensondevs\Mayar\SaaSMembership\SaaSMembership;
+
+$result = SaaSMembership::verify(
+    licenseCode: 'YOUR-LICENSE-CODE',
+    productId: 'YOUR-PRODUCT-ID',
+);
+
+if ($result->isLicenseActive) {
+    echo $result->licenseCode['membershipTierName'];
+}
+```
+
+**Mayar equivalent**
+
+```http
+POST {saasBase}/license/verify
+Authorization: Bearer {MAYAR_API_KEY}
+Content-Type: application/json
+
+{"licenseCode":"YOUR-LICENSE-CODE","productId":"YOUR-PRODUCT-ID"}
+```
+
+**API reference:** [Verify License SaaS Subscription](https://docs.mayar.id/api-reference/saas/verify)
+
+---
+
+### Activate license
+
+**Package**
+
+```php
+use Bensondevs\Mayar\SaaSMembership\SaaSMembership;
+
+$success = SaaSMembership::activate(
+    licenseCode: 'YOUR-LICENSE-CODE',
+    productId: 'YOUR-PRODUCT-ID',
+);
+```
+
+**Mayar equivalent**
+
+```http
+POST {saasBase}/license/activate
+Authorization: Bearer {MAYAR_API_KEY}
+Content-Type: application/json
+
+{"licenseCode":"YOUR-LICENSE-CODE","productId":"YOUR-PRODUCT-ID"}
+```
+
+**API reference:** [Activate License](https://docs.mayar.id/api-reference/saas/activate)
+
+---
+
+### Deactivate license
+
+**Package**
+
+```php
+use Bensondevs\Mayar\SaaSMembership\SaaSMembership;
+
+$success = SaaSMembership::deactivate(
+    licenseCode: 'YOUR-LICENSE-CODE',
+    productId: 'YOUR-PRODUCT-ID',
+);
+```
+
+**Mayar equivalent**
+
+```http
+POST {saasBase}/license/deactivate
+Authorization: Bearer {MAYAR_API_KEY}
+Content-Type: application/json
+
+{"licenseCode":"YOUR-LICENSE-CODE","productId":"YOUR-PRODUCT-ID"}
+```
+
+**API reference:** [Deactivate License](https://docs.mayar.id/api-reference/saas/deactivate)
 
 ---
 

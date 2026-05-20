@@ -6,10 +6,7 @@ namespace Bensondevs\Mayar\Products;
 
 use Bensondevs\Mayar\Models\MayarResource;
 use Bensondevs\Mayar\Products\Enums\ProductType;
-use Bensondevs\Mayar\SoftwareLicenseCodes\LicenseVerificationResult;
-use Bensondevs\Mayar\SoftwareLicenseCodes\SoftwareLicenseCode;
 use Illuminate\Pagination\LengthAwarePaginator;
-use LogicException;
 
 class Product extends MayarResource
 {
@@ -94,14 +91,5 @@ class Product extends MayarResource
         $this->syncAttributes($fresh->getAttributes());
 
         return $this;
-    }
-
-    public function verifyLicenseCode(string $licenseCode): LicenseVerificationResult
-    {
-        if (blank($this->getKey())) {
-            throw new LogicException('Cannot verify a license code on a product without an id.');
-        }
-
-        return SoftwareLicenseCode::verify($licenseCode, (string) $this->getKey());
     }
 }
