@@ -31,4 +31,12 @@ enum MayarMode: string
             self::Production => 'https://api.mayar.id/hl/v1',
         };
     }
+
+    public function softwareBaseUrl(): string
+    {
+        return match ($this) {
+            self::Sandbox => 'https://api.mayar.club/software/v1',
+            self::Production => 'https://api.mayar.id/software/v1',
+        };
+    }
 }

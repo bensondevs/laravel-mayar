@@ -1,0 +1,18 @@
+{
+    "statusCode": 200,
+    "isLicenseActive": true,
+    "licenseCode": {
+        "licenseCode": "LICENSECODE12345",
+        "status": "ACTIVE",
+        "expiredAt": "2025-12-12T19:46:24.000Z",
+        "transactionId": "994d4071-a81e-4558-a854-47530eea9b6d",
+        "productId": "84d1d247-a8b3-4c7d-96f0-cf276edb7c33",
+        "customerId": "6a38cf26-6bab-42c8-92be-72f3a9fd4c33",
+        "customerName": "John Doe",
+        "customerEmail": "johndoe@gmail.com",
+        "activationLimit": "Tidak terbatas",
+        "useCount": 10,
+        "createdAt": "2024-02-12T08:41:13.579Z",
+        "updatedAt": "2024-02-12T08:57:36.047Z"
+    }
+}
